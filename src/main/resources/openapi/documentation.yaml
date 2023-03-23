@@ -1,0 +1,71 @@
+openapi: "3.0.3"
+info:
+  title: "arbeidssoker_profilering API"
+  description: "arbeidssoker_profilering API"
+  version: "1.0.0"
+servers:
+- url: "https://arbeidssoker_profilering"
+paths:
+  /api/v1/profilering:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Unit"
+  /api/v1/profilering/standard-innsats:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "OK"
+  /internal/isAlive:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "ALIVE"
+  /internal/isReady:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "READY"
+  /internal/metrics:
+    get:
+      description: ""
+      parameters:
+      - name: "name[]"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+components:
+  schemas:
+    Unit:
+      type: "object"
+      properties: {}
