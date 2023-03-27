@@ -5,7 +5,7 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
-import no.nav.paw.domain.ProfileringDbo
+import no.nav.paw.domain.ProfileringDto
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {
@@ -21,7 +21,7 @@ class ProfileringRepository(private val dataSource: DataSource) {
         }
     }
 
-    fun hentSiste(foedselsnummer: Foedselsnummer): ProfileringDbo? {
+    fun hentSiste(foedselsnummer: Foedselsnummer): ProfileringDto? {
         sessionOf(dataSource).use { session ->
             val query =
                 queryOf(
@@ -34,7 +34,7 @@ class ProfileringRepository(private val dataSource: DataSource) {
         }
     }
 
-    private fun Row.tilProfilering() = ProfileringDbo(
+    private fun Row.tilProfilering() = ProfileringDto(
         uuid("id"),
         enumValueOf("innsatsgruppe"),
         string("besvarelse"),

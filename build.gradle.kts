@@ -109,6 +109,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:$flyway_version")
     implementation("com.github.seratch:kotliquery:$kotliquery_version")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
+    implementation("no.bekk.bekkopen:nocommons:0.13.0")
 
     // Test
     testImplementation(kotlin("test"))
