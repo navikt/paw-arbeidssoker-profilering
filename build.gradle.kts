@@ -17,6 +17,7 @@ val testcontainers_postgres_version: String by project
 val prometheus_version: String by project
 val nav_common_modules_version: String by project
 val token_support_version: String by project
+val aareg_client_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -76,6 +77,13 @@ dependencies {
     implementation("no.nav.common:kafka:$nav_common_modules_version")
     implementation("no.nav.common:feature-toggle:$nav_common_modules_version")
 
+    // NAV security
+    implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
+    implementation("no.nav.security:token-client-core:$token_support_version")
+
+    // PAW
+    implementation("no.nav.paw:aareg-client:$aareg_client_version")
+
     // Ktor
     implementation("io.ktor:ktor-server-core-jvm:$ktor_version")
     implementation("io.ktor:ktor-server-auth-jvm:$ktor_version")
@@ -90,10 +98,6 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson:$ktor_version")
     implementation("io.ktor:ktor-server-cors:$ktor_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
-
-    // NAV security
-    implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
-    implementation("no.nav.security:token-client-core:$token_support_version")
 
     // Annet
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")

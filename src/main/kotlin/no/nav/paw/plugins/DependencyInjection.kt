@@ -11,12 +11,14 @@ import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import no.nav.common.kafka.producer.util.KafkaProducerClientBuilder
 import no.nav.common.kafka.util.KafkaPropertiesBuilder
+import no.nav.paw.aareg.AaregClient
 import no.nav.paw.config.Config
 import no.nav.paw.config.createDatabaseConfig
 import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
 import no.nav.paw.services.ProfileringService
+import no.nav.paw.services.TokenService
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -80,6 +82,8 @@ fun Application.configureDependencyInjection(config: Config) {
                 single { ProfileringEndringProducer(get(), get(), get()) }
                 single { ProfileringService(get(), get()) }
                 single { ArbeidssokerRegistreringConsumer(get()) }
+                single { AaregClient(config.aaregClientConfig.url) { "test" } }
+                single { TokenService() }
             }
         )
     }

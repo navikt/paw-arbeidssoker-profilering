@@ -5,6 +5,7 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
+import no.nav.paw.domain.ProfileringDbo
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {
@@ -12,17 +13,15 @@ class ProfileringRepository(private val dataSource: DataSource) {
         sessionOf(dataSource, returnGeneratedKey = true).use { session ->
             val query =
                 queryOf(
-                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, alder, jobbet_sammenhengende_seks_av_tolv_siste_maneder) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, besvarelse) VALUES (?, ?, ?, ?)",
                     foedselsnummer.verdi,
-                    profilering.innsatsgruppe,
-                    profilering.alder,
-                    profilering.jobbetSammenhengendeSeksAvTolvSisteManeder
+                    profilering.innsatsgruppe
                 ).asUpdate
             return session.run(query)
         }
     }
 
-    fun hentSiste(foedselsnummer: Foedselsnummer): Profilering? {
+    fun hentSiste(foedselsnummer: Foedselsnummer): ProfileringDbo? {
         sessionOf(dataSource).use { session ->
             val query =
                 queryOf(
@@ -35,11 +34,10 @@ class ProfileringRepository(private val dataSource: DataSource) {
         }
     }
 
-    private fun Row.tilProfilering() = Profilering(
+    private fun Row.tilProfilering() = ProfileringDbo(
         uuid("id"),
         enumValueOf("innsatsgruppe"),
-        int("alder"),
-        boolean("jobbet_sammenhengende_seks_av_tolv_siste_maneder"),
+        string("besvarelse"),
         localDateTime("opprettet"),
         localDateTime("endret")
     )

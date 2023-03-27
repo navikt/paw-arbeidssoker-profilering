@@ -18,6 +18,10 @@ data class Config(
                 getEnvVar("KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC")
             )
         )
+    ),
+    val aaregClientConfig: ServiceClientConfig = ServiceClientConfig(
+        getEnvVar("AAREG_URL"),
+        getEnvVar("AAREG_SCOPE")
     )
 )
 
@@ -49,6 +53,11 @@ data class KafkaProducer(
     val topic: String
 )
 
+data class ServiceClientConfig(
+    val url: String,
+    val scope: String
+)
+
 fun getEnvVar(varName: String, defaultValue: String? = null) =
     System.getenv(varName) ?: defaultValue
-        ?: throw RuntimeException("Environment: Missing required variable \"$varName\"")
+    ?: throw RuntimeException("Environment: Missing required variable \"$varName\"")
