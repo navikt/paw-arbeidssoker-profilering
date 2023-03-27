@@ -1,5 +1,7 @@
 # paw-arbeidssoker-profilering
 
+Profilering av arbeidssøker for å fatte et 14a-vedtak
+
 ## Kafka
 
 ### Consumer
