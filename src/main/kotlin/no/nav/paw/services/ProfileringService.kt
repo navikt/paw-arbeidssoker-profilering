@@ -12,7 +12,6 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import java.util.*
 
-
 class ProfileringService(
     private val profileringRepository: ProfileringRepository,
     private val profileringEndringProducer: ProfileringEndringProducer,
@@ -30,31 +29,28 @@ class ProfileringService(
     }
 
     private fun profilerBruker(arbeidssokerRegistrertMelding: ArbeidssokerRegistrert): Profilering {
-        val fnr = arbeidssokerRegistrertMelding.foedselsnummer
+        val (foedselsnummer) = arbeidssokerRegistrertMelding
 
-        val perioder = runBlocking { aaregClient.hentArbeidsforhold(fnr.verdi, UUID.randomUUID().toString()) }
-            .map { it.ansettelsesperiode.periode }
-            .filter { it.tom !== null && it.tom!! < LocalDate.now().minusYears(1) }
-            .sortedBy { it.fom }
+        val dagensDato = LocalDate.now()
+        val etAarSiden = dagensDato.minusYears(1)
 
-        val iDag = LocalDate.now()
-        val etÅrSiden = iDag.minusYears(1)
+        val antallDagerISisteAar =
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
+                .map { it.ansettelsesperiode.periode }
+                .filter { it.tom == null || it.tom!! >= etAarSiden }
+                .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom ?: dagensDato) }
 
-        val antallDagerISisteÅr = perioder
-            .filter { it.tom == null || it.tom!! >= etÅrSiden }
-            .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom ?: iDag) }
+        val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (365 / 2)
+        val alder = foedselsnummer.alder
 
-        val oppfyllerKravTilArbeidserfaring = antallDagerISisteÅr > (365/2)
-        val alder = fnr.alder
-
-        val innsatsgruppe = beregnInnsatsgruppe(arbeidssokerRegistrertMelding.besvarelse, alder, oppfyllerKravTilArbeidserfaring)
+        val innsatsgruppe =
+            beregnInnsatsgruppe(arbeidssokerRegistrertMelding.besvarelse, alder, oppfyllerKravTilArbeidserfaring)
 
         return Profilering(
-            id = null,
+            null,
             innsatsgruppe,
             alder,
             oppfyllerKravTilArbeidserfaring
         )
     }
-
 }

@@ -19,7 +19,7 @@ data class Besvarelse(
     val sisteStilling: SisteStillingSvar? = null,
     val dinSituasjon: DinSituasjonSvar? = null,
     val fremtidigSituasjon: FremtidigSituasjonSvar? = null,
-    val tilbakeIArbeid: TilbakeIArbeidSvar? = null,
+    val tilbakeIArbeid: TilbakeIArbeidSvar? = null
 )
 
 enum class UtdanningSvar {

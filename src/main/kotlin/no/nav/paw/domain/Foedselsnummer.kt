@@ -1,6 +1,5 @@
 package no.nav.paw.domain
 
-import com.nimbusds.jwt.util.DateUtils
 import no.bekk.bekkopen.person.FodselsnummerValidator
 import no.nav.paw.domain.FnrUtils.alderForFnr
 import java.time.LocalDate
@@ -9,15 +8,12 @@ import java.time.Period
 @JvmInline
 value class Foedselsnummer(val verdi: String) {
     val alder: Int get() = alderForFnr(verdi, LocalDate.now())
-    override fun toString(): String {
-        return "*".repeat(11)
-    }
+    override fun toString(): String = "*".repeat(11)
 }
 
 internal object FnrUtils {
-    fun alderForFnr(fnr: String, dagensDato: LocalDate): Int {
-        return antallAarSidenDato(utledFodselsdatoForFnr(fnr), dagensDato)
-    }
+    fun alderForFnr(fnr: String, dagensDato: LocalDate): Int =
+        antallAarSidenDato(utledFodselsdatoForFnr(fnr), dagensDato)
 
     fun utledFodselsdatoForFnr(fnr: String): LocalDate {
         val fodselsnummer = FodselsnummerValidator.getFodselsnummer(fnr)
@@ -28,7 +24,6 @@ internal object FnrUtils {
         )
     }
 
-    fun antallAarSidenDato(dato: LocalDate?, dagensDato: LocalDate): Int {
-        return Period.between(dato, dagensDato).years
-    }
+    fun antallAarSidenDato(dato: LocalDate?, dagensDato: LocalDate): Int =
+        Period.between(dato, dagensDato).years
 }
