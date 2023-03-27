@@ -33,6 +33,7 @@ class ProfileringService(
 
         val dagensDato = LocalDate.now()
         val etAarSiden = dagensDato.minusYears(1)
+        val etAarsverk = 230
 
         val antallDagerISisteAar =
             runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
@@ -40,7 +41,8 @@ class ProfileringService(
                 .filter { it.tom == null || it.tom!! >= etAarSiden }
                 .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom ?: dagensDato) }
 
-        val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (365 / 2)
+        // TODO: Sjekke om dette blir riktig
+        val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (etAarsverk / 2)
         val alder = foedselsnummer.alder
 
         val innsatsgruppe =
