@@ -3,7 +3,7 @@ package no.nav.paw.domain
 import java.time.LocalDateTime
 import java.util.UUID
 
-data class ProfileringDbo(
+data class ProfileringDto(
     val id: UUID? = null,
     val innsatsgruppe: Innsatsgruppe,
     val besvarelse: String,
