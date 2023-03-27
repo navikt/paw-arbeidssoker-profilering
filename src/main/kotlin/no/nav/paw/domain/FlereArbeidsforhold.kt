@@ -2,7 +2,6 @@ package no.nav.paw.domain
 
 import java.time.LocalDate
 import java.util.*
-import kotlin.Comparator
 
 data class FlereArbeidsforhold(val flereArbeidsforhold: List<Arbeidsforhold>) {
     /**
@@ -36,14 +35,6 @@ data class FlereArbeidsforhold(val flereArbeidsforhold: List<Arbeidsforhold>) {
         flereArbeidsforhold.any {
             it.erDatoInnenforPeriode(innevaerendeMnd)
         }
-
-    companion object {
-
-        private fun sorterArbeidsforholdEtterTilDato(): Comparator<Arbeidsforhold> {
-            return Comparator.comparing(Arbeidsforhold::tom, Comparator.nullsLast(Comparator.naturalOrder()))
-                .reversed()
-        }
-    }
 }
 
 data class Arbeidsforhold(
@@ -53,8 +44,7 @@ data class Arbeidsforhold(
     val tom: LocalDate?,
     private val navArbeidsforholdId: String?
 ) {
-        fun erDatoInnenforPeriode(innevaerendeMnd: LocalDate): Boolean {
-            return innevaerendeMnd.isAfter(fom!!.minusDays(1)) &&
-                    (Objects.isNull(tom) || innevaerendeMnd.isBefore(tom!!.plusDays(1)))
-        }
+    fun erDatoInnenforPeriode(innevaerendeMnd: LocalDate): Boolean =
+        innevaerendeMnd.isAfter(fom!!.minusDays(1)) &&
+                (Objects.isNull(tom) || innevaerendeMnd.isBefore(tom!!.plusDays(1)))
 }
