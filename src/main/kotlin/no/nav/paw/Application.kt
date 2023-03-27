@@ -6,6 +6,7 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
 import no.nav.paw.config.Config
 import no.nav.paw.config.migrateDatabase
+import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
 import no.nav.paw.plugins.configureDependencyInjection
 import no.nav.paw.plugins.configureHTTP
 import no.nav.paw.plugins.configureLogging
@@ -15,6 +16,7 @@ import no.nav.paw.routes.internalRoutes
 import no.nav.paw.routes.swaggerRoutes
 import org.koin.ktor.ext.inject
 import javax.sql.DataSource
+import kotlin.concurrent.thread
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
@@ -33,6 +35,12 @@ fun Application.module() {
     // Migrate database
     val dataSource by inject<DataSource>()
     migrateDatabase(dataSource)
+
+    val arbeidssokerRegistreringConsumer by inject<ArbeidssokerRegistreringConsumer>()
+
+    thread {
+        arbeidssokerRegistreringConsumer.start()
+    }
 
     // Routes
     routing {
