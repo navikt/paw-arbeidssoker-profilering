@@ -78,12 +78,13 @@ fun Application.configureDependencyInjection(config: Config) {
                     KafkaConsumer<String, String>(consumerProperties)
                 }
 
-                single { ProfileringRepository(get()) }
-                single { ProfileringEndringProducer(get(), get(), get()) }
-                single { ProfileringService(get(), get()) }
-                single { ArbeidssokerRegistreringConsumer(get()) }
                 single { AaregClient(config.aaregClientConfig.url) { "test" } }
                 single { TokenService() }
+
+                single { ProfileringRepository(get()) }
+                single { ProfileringEndringProducer(get(), get(), get()) }
+                single { ProfileringService(get(), get(), get()) }
+                single { ArbeidssokerRegistreringConsumer(get(), get(), get()) }
             }
         )
     }
