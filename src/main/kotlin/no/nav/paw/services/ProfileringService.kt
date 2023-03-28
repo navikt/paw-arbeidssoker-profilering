@@ -1,10 +1,12 @@
 package no.nav.paw.services
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import kotlinx.coroutines.runBlocking
 import no.nav.paw.aareg.AaregClient
 import no.nav.paw.domain.ArbeidssokerRegistrert
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
+import no.nav.paw.domain.ProfileringDto
 import no.nav.paw.domain.beregnInnsatsgruppe
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
@@ -15,18 +17,18 @@ import java.util.*
 class ProfileringService(
     private val profileringRepository: ProfileringRepository,
     private val profileringEndringProducer: ProfileringEndringProducer,
-    private val aaregClient: AaregClient
+    private val aaregClient: AaregClient,
+    private val objectMapper: ObjectMapper
 ) {
     fun opprettProfilering(arbeidssokerRegistrertMelding: ArbeidssokerRegistrert) {
-        val foedselsnummer = arbeidssokerRegistrertMelding.foedselsnummer
+        val (foedselsnummer, _, besvarelse) = arbeidssokerRegistrertMelding
         val profilering = profilerBruker(arbeidssokerRegistrertMelding)
-        profileringRepository.opprett(foedselsnummer, profilering)
+        profileringRepository.opprett(foedselsnummer, profilering, objectMapper.writeValueAsString(besvarelse))
         profileringEndringProducer.publish(profilering.tilProfileringEndringMelding(foedselsnummer))
     }
 
-    fun hentSisteProfilering(foedselsnummer: Foedselsnummer) {
+    fun hentSisteProfilering(foedselsnummer: Foedselsnummer): ProfileringDto? =
         profileringRepository.hentSiste(foedselsnummer)
-    }
 
     private fun profilerBruker(arbeidssokerRegistrertMelding: ArbeidssokerRegistrert): Profilering {
         val (foedselsnummer) = arbeidssokerRegistrertMelding

@@ -1,6 +1,7 @@
 package no.nav.paw.kafka.consumers
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.paw.domain.ArbeidssokerRegistrert
 import no.nav.paw.services.ProfileringService
 import no.nav.paw.utils.logger
@@ -8,23 +9,24 @@ import org.apache.kafka.clients.consumer.KafkaConsumer
 import java.time.Duration
 
 class ArbeidssokerRegistreringConsumer(
+    private val topic: String,
     private val consumer: KafkaConsumer<String, String>,
     private val profileringService: ProfileringService,
-    private val jsonObjectMapper: ObjectMapper
+    private val objectMapper: ObjectMapper
 ) {
     init {
-        logger.info("Lytter på topic")
-        consumer.subscribe(listOf("test"))
+        logger.info("Lytter på topic $topic")
+        consumer.subscribe(listOf(topic))
     }
 
     fun start() {
         while (true) {
-            val records = consumer.poll(Duration.ofMillis(300))
-            for (record in records) {
-                val arbeidssokerRegistrertMelding = jsonObjectMapper.readValue(record.value(), ArbeidssokerRegistrert::class.java)
+            val poster = consumer.poll(Duration.ofMillis(300))
+            for (post in poster) {
+                val arbeidssokerRegistrertMelding: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
                 profileringService.opprettProfilering(arbeidssokerRegistrertMelding)
 
-                logger.info("Mottok melding fra topic: ${record.value()}")
+                logger.info("Mottok melding fra $topic: ${post.value()}")
             }
             consumer.commitAsync()
         }

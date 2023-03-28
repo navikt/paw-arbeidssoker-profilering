@@ -5,8 +5,7 @@ import no.nav.paw.domain.FnrUtils.alderForFnr
 import java.time.LocalDate
 import java.time.Period
 
-@JvmInline
-value class Foedselsnummer(val verdi: String) {
+data class Foedselsnummer(val verdi: String) {
     val alder: Int get() = alderForFnr(verdi, LocalDate.now())
     override fun toString(): String = "*".repeat(11)
 }

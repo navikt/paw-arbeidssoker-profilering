@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
@@ -24,6 +25,7 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
+import java.util.*
 
 fun Application.configureDependencyInjection(config: Config) {
     install(Koin) {
@@ -47,6 +49,7 @@ fun Application.configureDependencyInjection(config: Config) {
 
                 single {
                     jacksonObjectMapper().apply {
+                        registerKotlinModule()
                         disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                         disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                         registerModule(JavaTimeModule())
@@ -78,13 +81,21 @@ fun Application.configureDependencyInjection(config: Config) {
                     KafkaConsumer<String, String>(consumerProperties)
                 }
 
-                single { AaregClient(config.aaregClientConfig.url) { "test" } }
                 single { TokenService() }
+                // TODO: TokenService.createMachineToMachineToken(scope) her
+                single { AaregClient(config.aaregClientConfig.url) { "test" } }
 
                 single { ProfileringRepository(get()) }
                 single { ProfileringEndringProducer(get(), get(), get()) }
-                single { ProfileringService(get(), get(), get()) }
-                single { ArbeidssokerRegistreringConsumer(get(), get(), get()) }
+                single { ProfileringService(get(), get(), get(), get()) }
+                single {
+                    ArbeidssokerRegistreringConsumer(
+                        config.kafka.consumers.arbeidssokerRegistrering.topic,
+                        get(),
+                        get(),
+                        get()
+                    )
+                }
             }
         )
     }

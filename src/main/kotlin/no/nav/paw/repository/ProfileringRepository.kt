@@ -4,18 +4,20 @@ import kotliquery.Row
 import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.domain.Foedselsnummer
+import no.nav.paw.domain.Innsatsgruppe
 import no.nav.paw.domain.Profilering
 import no.nav.paw.domain.ProfileringDto
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {
-    fun opprett(foedselsnummer: Foedselsnummer, profilering: Profilering): Int {
+    fun opprett(foedselsnummer: Foedselsnummer, profilering: Profilering, besvarelse: String): Int {
         sessionOf(dataSource, returnGeneratedKey = true).use { session ->
             val query =
                 queryOf(
-                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, besvarelse) VALUES (?, ?, ?, ?)",
+                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, besvarelse) VALUES (?, ?, ?::jsonb)",
                     foedselsnummer.verdi,
-                    profilering.innsatsgruppe
+                    profilering.innsatsgruppe.toString(),
+                    besvarelse
                 ).asUpdate
             return session.run(query)
         }
@@ -27,17 +29,14 @@ class ProfileringRepository(private val dataSource: DataSource) {
                 queryOf(
                     "SELECT * FROM $PROFILERING_TABELL WHERE foedselsnummer = ? ORDER BY endret DESC LIMIT 1",
                     foedselsnummer.verdi
-                ).map {
-                    it.tilProfilering()
-                }.asSingle
+                ).map { it.tilProfilering() }.asSingle
             return session.run(query)
         }
     }
 
     private fun Row.tilProfilering() = ProfileringDto(
-        uuid("id"),
-        enumValueOf("innsatsgruppe"),
-        string("besvarelse"),
+        int("id"),
+        Innsatsgruppe.valueOf(string("innsatsgruppe")),
         localDateTime("opprettet"),
         localDateTime("endret")
     )

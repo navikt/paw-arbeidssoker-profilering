@@ -1,15 +1,15 @@
 package no.nav.paw.domain
 
-import no.nav.common.types.identer.AktorId
-import java.time.LocalDateTime
+import java.time.ZonedDateTime
 
 data class ArbeidssokerRegistrert(
     val foedselsnummer: Foedselsnummer,
     val aktorId: AktorId,
     val besvarelse: Besvarelse,
-    val opprettetDato: LocalDateTime
+    val opprettetDato: ZonedDateTime
 )
 
+data class AktorId(val aktorId: String)
 data class Besvarelse(
     val utdanning: UtdanningSvar? = null,
     val utdanningBestatt: UtdanningBestattSvar? = null,
