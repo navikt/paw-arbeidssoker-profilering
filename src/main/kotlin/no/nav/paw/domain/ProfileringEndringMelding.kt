@@ -1,9 +1,7 @@
 package no.nav.paw.domain
 
-import java.util.UUID
-
 data class ProfileringEndringMelding(
-    val id: UUID?,
+    val id: Int?,
     val foedselsnummer: Foedselsnummer,
     val innsatsgruppe: Innsatsgruppe
 )

@@ -3,7 +3,7 @@ package no.nav.paw.domain
 import java.util.UUID
 
 data class Profilering(
-    val id: UUID? = null,
+    val id: Int? = null,
     val innsatsgruppe: Innsatsgruppe,
     val alder: Int,
     val jobbetSammenhengendeSeksAvTolvSisteManeder: Boolean

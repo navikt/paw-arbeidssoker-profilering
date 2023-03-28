@@ -18,6 +18,7 @@ val prometheus_version: String by project
 val nav_common_modules_version: String by project
 val token_support_version: String by project
 val aareg_client_version: String by project
+val junit_jupiter_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -116,4 +117,5 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:$testcontainers_version")
     testImplementation("org.testcontainers:postgresql:$testcontainers_postgres_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junit_jupiter_version")
 }
