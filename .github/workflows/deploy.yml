@@ -6,9 +6,7 @@ on:
       - main
       - dev/*
 
-env:
-  IMAGE_BASE: ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}
-
+jobs:
   build:
     name: Test, build, push
     runs-on: ubuntu-latest
