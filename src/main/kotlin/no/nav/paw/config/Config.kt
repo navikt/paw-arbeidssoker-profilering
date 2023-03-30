@@ -1,27 +1,30 @@
 package no.nav.paw.config
 
+import io.github.cdimascio.dotenv.dotenv
+
+val dotenv = dotenv()
 data class Config(
     val database: DatabaseConfig = DatabaseConfig(
-        getEnvVar("NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_ARBEIDSSOKER_PROFILERING_URL")
+        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_ARBEIDSSOKER_PROFILERING_URL"]
     ),
     val kafka: KafkaConfig = KafkaConfig(
-        getEnvVar("KAFKA_BROKER_URL"),
-        getEnvVar("KAFKA_PRODUCER_ID"),
-        getEnvVar("KAFKA_CONSUMER_GROUP_ID"),
+        dotenv["KAFKA_BROKER_URL"],
+        dotenv["KAFKA_PRODUCER_ID"],
+        dotenv["KAFKA_CONSUMER_GROUP_ID"],
         KafkaProducers(
             KafkaProducer(
-                getEnvVar("KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC")
+                dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC"]
             )
         ),
         KafkaConsumers(
             KafkaConsumer(
-                getEnvVar("KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC")
+                dotenv["KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC"]
             )
         )
     ),
     val aaregClientConfig: ServiceClientConfig = ServiceClientConfig(
-        getEnvVar("AAREG_URL"),
-        getEnvVar("AAREG_SCOPE")
+        dotenv["AAREG_URL"],
+        dotenv["AAREG_SCOPE"]
     )
 )
 
@@ -57,7 +60,3 @@ data class ServiceClientConfig(
     val url: String,
     val scope: String
 )
-
-fun getEnvVar(varName: String, defaultValue: String? = null) =
-    System.getenv(varName) ?: defaultValue
-        ?: throw RuntimeException("Environment: Missing required variable \"$varName\"")
