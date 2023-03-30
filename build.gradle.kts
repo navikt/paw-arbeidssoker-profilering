@@ -20,6 +20,7 @@ val token_support_version: String by project
 val aareg_client_version: String by project
 val junit_jupiter_version: String by project
 val dotenv_kotlin_version: String by project
+val nocommons_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -111,7 +112,7 @@ dependencies {
     implementation("org.flywaydb:flyway-core:$flyway_version")
     implementation("com.github.seratch:kotliquery:$kotliquery_version")
     implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
-    implementation("no.bekk.bekkopen:nocommons:0.13.0")
+    implementation("no.bekk.bekkopen:nocommons:$nocommons_version")
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenv_kotlin_version")
 
     // Test

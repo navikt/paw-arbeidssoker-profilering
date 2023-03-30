@@ -4,6 +4,7 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
+
     <appender name="secureLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/secure-logs/secure.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -17,9 +18,13 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
-    <logger name="tjenestekall" level="DEBUG" additivity="false">
-        <appender-ref ref="secureLog" />
-    </logger>
+<if condition='isDefined("NAIS_CLUSTER_NAME")'>
+    <then>
+        <logger name="tjenestekall" level="DEBUG" additivity="false">
+            <appender-ref ref="secureLog" />
+        </logger>
+    </then>
+</if>
 
     <logger name="org.apache.kafka" level="WARN" />
     <logger name="no.nav" level="INFO" />
