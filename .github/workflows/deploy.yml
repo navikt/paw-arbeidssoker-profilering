@@ -41,7 +41,7 @@ jobs:
 
   deploy-dev:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev')
-    name: Deploy to prod-gcp
+    name: Deploy to dev-gcp
     needs: [build]
     runs-on: ubuntu-latest
     steps:
