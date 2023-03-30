@@ -1,0 +1,50 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: paw-arbeidssoker-profilering
+  namespace: paw
+  labels:
+    team: paw
+spec:
+  azure:
+    application:
+      enabled: true
+  image: {{ image }}
+  port: 3000
+  replicas:
+    min: 1
+    max: 1
+  liveness:
+    path: /internal/isAlive
+    initialDelay: 10
+  readiness:
+    path: /internal/isReady
+    initialDelay: 10
+  prometheus:
+    enabled: true
+    path: /internal/metrics
+  env:
+    - name: KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC
+      value: arbeidssoker-registrering-v2
+    - name: KAFKA_CONSUMER_GROUP_ID
+      value: arbeidssoker-profilering-consumer-v1
+    - name: KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC
+      value: arbeidssoker-profilering-endring-v1
+    - name: KAFKA_PRODUCER_ID
+      value: arbeidssoker-profilering-producer-v1
+    - name: AAREG_URL
+      value: 
+    - name: AAREG_SCOPE
+      value: api://dev-gcp.paw.paw-arbeidssoker-profilering/.default
+  resources:
+    limits:
+      cpu: '3'
+      memory: 768Mi
+    requests:
+      cpu: 500m
+      memory: 580Mi
+  kafka:
+    pool: nav-dev
+  accessPolicy:
+      outbound:
+          rules:
