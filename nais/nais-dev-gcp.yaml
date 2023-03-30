@@ -36,6 +36,8 @@ spec:
       value: 
     - name: AAREG_SCOPE
       value: api://dev-gcp.paw.paw-arbeidssoker-profilering/.default
+    - name: UNLEASH_URL
+      value: https://unleash.nais.io/api/
   resources:
     limits:
       cpu: '3'

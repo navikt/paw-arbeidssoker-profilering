@@ -8,6 +8,10 @@ data class Config(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_ARBEIDSSOKER_PROFILERING_URL"]
     ),
     val naisEnv: NaisEnv = NaisEnv.current(),
+    val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
+        dotenv["UNLEASH_URL"],
+        dotenv["NAIS_APP_NAME"]
+    ),
     val kafka: KafkaConfig = KafkaConfig(
         dotenv["KAFKA_BROKER_URL"],
         dotenv["KAFKA_PRODUCER_ID"],
@@ -60,6 +64,11 @@ data class KafkaProducer(
 data class ServiceClientConfig(
     val url: String,
     val scope: String
+)
+
+data class UnleashClientConfig(
+    val url: String,
+    val appName: String
 )
 
 enum class NaisEnv(val clusterName: String) {

@@ -10,6 +10,9 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
+import no.nav.common.featuretoggle.ByClusterStrategy
+import no.nav.common.featuretoggle.UnleashClient
+import no.nav.common.featuretoggle.UnleashClientImpl
 import no.nav.common.kafka.producer.util.KafkaProducerClientBuilder
 import no.nav.common.kafka.util.KafkaPropertiesBuilder
 import no.nav.paw.aareg.AaregClient
@@ -56,6 +59,14 @@ fun Application.configureDependencyInjection(config: Config) {
                     }
                 }
 
+                single<UnleashClient> {
+                    UnleashClientImpl(
+                        config.unleashClientConfig.url,
+                        config.unleashClientConfig.appName,
+                        listOf(ByClusterStrategy())
+                    )
+                }
+
                 single {
                     val producerProperties = KafkaPropertiesBuilder.producerBuilder()
                         .withBaseProperties()
@@ -96,6 +107,7 @@ fun Application.configureDependencyInjection(config: Config) {
                 single {
                     ArbeidssokerRegistreringConsumer(
                         config.kafka.consumers.arbeidssokerRegistrering.topic,
+                        get(),
                         get(),
                         get(),
                         get()
