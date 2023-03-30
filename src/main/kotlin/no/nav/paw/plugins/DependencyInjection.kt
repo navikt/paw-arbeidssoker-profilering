@@ -15,6 +15,7 @@ import no.nav.common.featuretoggle.UnleashClient
 import no.nav.common.featuretoggle.UnleashClientImpl
 import no.nav.common.kafka.producer.util.KafkaProducerClientBuilder
 import no.nav.common.kafka.util.KafkaPropertiesBuilder
+import no.nav.common.kafka.util.KafkaPropertiesPreset
 import no.nav.paw.aareg.AaregClient
 import no.nav.paw.auth.TokenService
 import no.nav.paw.config.Config
@@ -68,12 +69,16 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single {
-                    val producerProperties = KafkaPropertiesBuilder.producerBuilder()
-                        .withBaseProperties()
-                        .withProducerId(config.kafka.producerId)
-                        .withBrokerUrl(config.kafka.brokerUrl)
-                        .withSerializers(StringSerializer::class.java, StringSerializer::class.java)
-                        .build()
+                    val producerProperties = when (NaisEnv.current()) {
+                        NaisEnv.Local -> KafkaPropertiesBuilder.producerBuilder()
+                            .withBaseProperties()
+                            .withProducerId(config.kafka.producerId)
+                            .withBrokerUrl(config.kafka.brokerUrl)
+                            .withSerializers(StringSerializer::class.java, StringSerializer::class.java)
+                            .build()
+
+                        else -> KafkaPropertiesPreset.aivenDefaultProducerProperties(config.kafka.producerId)
+                    }
 
                     val client = KafkaProducerClientBuilder.builder<String, String>()
                         .withProperties(producerProperties)
@@ -82,12 +87,16 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single {
-                    val consumerProperties = KafkaPropertiesBuilder.consumerBuilder()
-                        .withBaseProperties()
-                        .withConsumerGroupId(config.kafka.consumerGroupId)
-                        .withBrokerUrl(config.kafka.brokerUrl)
-                        .withDeserializers(StringDeserializer::class.java, StringDeserializer::class.java)
-                        .build()
+                    val consumerProperties = when (NaisEnv.current()) {
+                        NaisEnv.Local -> KafkaPropertiesBuilder.consumerBuilder()
+                            .withBaseProperties()
+                            .withConsumerGroupId(config.kafka.consumerGroupId)
+                            .withBrokerUrl(config.kafka.brokerUrl)
+                            .withDeserializers(StringDeserializer::class.java, StringDeserializer::class.java)
+                            .build()
+
+                        else -> KafkaPropertiesPreset.aivenDefaultConsumerProperties(config.kafka.consumerGroupId)
+                    }
 
                     KafkaConsumer<String, String>(consumerProperties)
                 }
