@@ -10,8 +10,8 @@ data class Config(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PORT"],
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_NAME"],
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_USER"],
-        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PASSWORD"],
-        ),
+        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PASSWORD"]
+    ),
     val naisEnv: NaisEnv = NaisEnv.current(),
     val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
         dotenv["UNLEASH_URL"],
@@ -43,7 +43,7 @@ data class DatabaseConfig(
     val port: String,
     val name: String,
     val user: String,
-    val password: String,
+    val password: String
 ) {
     val jdbcUrl: String get() = "jdbc:postgresql://$host/$name?user=$user&password=$password"
 }
