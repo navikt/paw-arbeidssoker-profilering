@@ -2,7 +2,8 @@ package no.nav.paw.config
 
 import io.github.cdimascio.dotenv.dotenv
 
-val dotenv = dotenv()
+val dotenv = dotenv { ignoreIfMissing = true }
+
 data class Config(
     val database: DatabaseConfig = DatabaseConfig(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_ARBEIDSSOKER_PROFILERING_URL"]
