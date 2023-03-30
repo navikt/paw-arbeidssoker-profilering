@@ -6,7 +6,7 @@ val dotenv = dotenv { ignoreIfMissing = true }
 
 data class Config(
     val database: DatabaseConfig = DatabaseConfig(
-        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PAW_ARBEIDSSOKER_PROFILERING_URL"]
+        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_URL"]
     ),
     val naisEnv: NaisEnv = NaisEnv.current(),
     val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
