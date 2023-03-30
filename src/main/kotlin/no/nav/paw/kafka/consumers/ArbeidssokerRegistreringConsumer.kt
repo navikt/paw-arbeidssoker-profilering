@@ -20,7 +20,6 @@ class ArbeidssokerRegistreringConsumer(
     init {
         logger.info("Lytter på topic $topic")
         consumer.subscribe(listOf(topic))
-
     }
 
     fun start() {
