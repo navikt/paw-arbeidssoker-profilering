@@ -25,11 +25,11 @@ spec:
     path: /internal/metrics
   env:
     - name: KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC
-      value: arbeidssoker-registrering-v2
+      value: paw.arbeidssoker-registrert-v2
     - name: KAFKA_CONSUMER_GROUP_ID
       value: arbeidssoker-profilering-consumer-v1
     - name: KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC
-      value: arbeidssoker-profilering-endring-v1
+      value: paw.arbeidssoker-profilering-endring-v1
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-profilering-producer-v1
     - name: AAREG_URL
