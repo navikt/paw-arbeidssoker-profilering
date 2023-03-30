@@ -8,8 +8,8 @@ data class Config(
     val database: DatabaseConfig = DatabaseConfig(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_HOST"],
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PORT"],
-        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_NAME"],
-        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_USER"],
+        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_DATABASE"],
+        dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_USERNAME"],
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PASSWORD"]
     ),
     val naisEnv: NaisEnv = NaisEnv.current(),
@@ -41,11 +41,11 @@ data class Config(
 data class DatabaseConfig(
     val host: String,
     val port: String,
-    val name: String,
-    val user: String,
+    val database: String,
+    val username: String,
     val password: String
 ) {
-    val jdbcUrl: String get() = "jdbc:postgresql://$host/$name?user=$user&password=$password"
+    val jdbcUrl: String get() = "jdbc:postgresql://$host/$database?user=$username&password=$password"
 }
 
 data class KafkaConfig(
