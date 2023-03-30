@@ -19,11 +19,11 @@ docker-compose up -d
 ```sh
 # Eksempel melding
 cat src/main/resources/arbeidssoker-registrert-kafka-melding.json | jq -c .
-docker exec -it arbeidssoker-profilering_kafka_1 kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrering-v2
+docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrering-v2
 ```
 
 ### Consumer
 
 ```sh
-docker exec -it arbeidssoker-profilering_kafka_1 kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilering-endring-v1
+docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilering-endring-v1
 ```
