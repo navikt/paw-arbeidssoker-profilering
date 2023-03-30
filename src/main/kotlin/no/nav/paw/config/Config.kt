@@ -7,6 +7,7 @@ data class Config(
     val database: DatabaseConfig = DatabaseConfig(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_ARBEIDSSOKER_PROFILERING_URL"]
     ),
+    val naisEnv: NaisEnv = NaisEnv.current(),
     val kafka: KafkaConfig = KafkaConfig(
         dotenv["KAFKA_BROKER_URL"],
         dotenv["KAFKA_PRODUCER_ID"],
@@ -60,3 +61,21 @@ data class ServiceClientConfig(
     val url: String,
     val scope: String
 )
+
+enum class NaisEnv(val clusterName: String) {
+    Local("local"),
+    DevGCP("dev-gcp"),
+    ProdGCP("prod-gcp");
+
+    companion object {
+        fun current(): NaisEnv = when (System.getenv("NAIS_CLUSTER_NAME")) {
+            DevGCP.clusterName -> DevGCP
+            ProdGCP.clusterName -> ProdGCP
+            else -> Local
+        }
+    }
+
+    fun isLocal(): Boolean = this === Local
+    fun isDevGCP(): Boolean = this === DevGCP
+    fun isProdGCP(): Boolean = this === ProdGCP
+}

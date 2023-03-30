@@ -1,6 +1,7 @@
 package no.nav.paw.domain
 
 import no.bekk.bekkopen.person.FodselsnummerValidator
+import no.nav.paw.config.NaisEnv
 import no.nav.paw.domain.FnrUtils.alderForFnr
 import java.time.LocalDate
 import java.time.Period
@@ -15,6 +16,9 @@ internal object FnrUtils {
         antallAarSidenDato(utledFodselsdatoForFnr(fnr), dagensDato)
 
     fun utledFodselsdatoForFnr(fnr: String): LocalDate {
+        if (!NaisEnv.current().isProdGCP()) {
+            FodselsnummerValidator.ALLOW_SYNTHETIC_NUMBERS = true
+        }
         val fodselsnummer = FodselsnummerValidator.getFodselsnummer(fnr)
         return LocalDate.of(
             fodselsnummer.birthYear.toInt(),
