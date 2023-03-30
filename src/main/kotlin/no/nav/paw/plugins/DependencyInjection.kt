@@ -13,14 +13,14 @@ import io.ktor.server.application.install
 import no.nav.common.kafka.producer.util.KafkaProducerClientBuilder
 import no.nav.common.kafka.util.KafkaPropertiesBuilder
 import no.nav.paw.aareg.AaregClient
+import no.nav.paw.auth.TokenService
 import no.nav.paw.config.Config
+import no.nav.paw.config.NaisEnv
 import no.nav.paw.config.createDatabaseConfig
 import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
 import no.nav.paw.services.ProfileringService
-import no.nav.paw.auth.TokenService
-import no.nav.paw.config.NaisEnv
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -81,15 +81,14 @@ fun Application.configureDependencyInjection(config: Config) {
                     KafkaConsumer<String, String>(consumerProperties)
                 }
 
-                val tokenService = TokenService()
-                single { tokenService }
-                single { AaregClient(config.aaregClientConfig.url) {
-                    if (NaisEnv.current().isLocal()) {
-                        "test"
-                    } else {
-                        tokenService.createMachineToMachineToken(config.aaregClientConfig.scope)
+                single {
+                    AaregClient(config.aaregClientConfig.url) {
+                        when (NaisEnv.current()) {
+                            NaisEnv.Local -> "testToken"
+                            else -> TokenService().createMachineToMachineToken(config.aaregClientConfig.scope)
+                        }
                     }
-                } }
+                }
 
                 single { ProfileringRepository(get()) }
                 single { ProfileringEndringProducer(get(), get(), get()) }

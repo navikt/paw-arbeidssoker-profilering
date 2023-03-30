@@ -1,7 +1,5 @@
 package no.nav.paw.domain
 
-import java.util.UUID
-
 data class Profilering(
     val id: Int? = null,
     val innsatsgruppe: Innsatsgruppe,
