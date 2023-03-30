@@ -35,7 +35,7 @@ fun Application.configureDependencyInjection(config: Config) {
         modules(
             module {
                 single {
-                    createDatabaseConfig(config.database.url)
+                    createDatabaseConfig(config.database.jdbcUrl)
                 }
 
                 single {

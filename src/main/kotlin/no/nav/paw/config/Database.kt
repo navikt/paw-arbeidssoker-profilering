@@ -7,7 +7,7 @@ import javax.sql.DataSource
 
 fun createDatabaseConfig(url: String): DataSource = HikariDataSource(
     HikariConfig().apply {
-        jdbcUrl = "jdbc:$url"
+        jdbcUrl = url
         maximumPoolSize = 3
         minimumIdle = 1
         idleTimeout = 10001
