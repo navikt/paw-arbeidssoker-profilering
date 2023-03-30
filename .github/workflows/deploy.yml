@@ -42,7 +42,7 @@ jobs:
   deploy-dev:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/dev')
     name: Deploy to prod-gcp
-    needs: [set-vars, build]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -59,7 +59,7 @@ jobs:
   # deploy-prod:
   #   if: github.ref == 'refs/heads/main'
   #   name: Deploy to prod-gcp
-  #   needs: [set-vars, build]
+  #   needs: [build]
   #   runs-on: ubuntu-latest
   #   steps:
   #     - uses: actions/checkout@v3
