@@ -50,3 +50,8 @@ spec:
   accessPolicy:
       outbound:
           rules:
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_14
+        databases:
+          - name: profilering
