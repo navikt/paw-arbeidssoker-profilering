@@ -1,4 +1,4 @@
-package no.nav.paw.services
+package no.nav.paw.auth
 
 import no.nav.common.token_client.builder.AzureAdTokenClientBuilder
 import no.nav.paw.utils.logger
