@@ -25,6 +25,7 @@ import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
 import no.nav.paw.services.ProfileringService
+import org.apache.kafka.clients.consumer.ConsumerConfig
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.kafka.common.serialization.StringSerializer
@@ -95,7 +96,11 @@ fun Application.configureDependencyInjection(config: Config) {
                             .withDeserializers(StringDeserializer::class.java, StringDeserializer::class.java)
                             .build()
 
-                        else -> KafkaPropertiesPreset.aivenDefaultConsumerProperties(config.kafka.consumerGroupId)
+                        else -> KafkaPropertiesBuilder.consumerBuilder()
+                            .withProps(KafkaPropertiesPreset.aivenDefaultConsumerProperties(config.kafka.consumerGroupId))
+                            .withDeserializers(StringDeserializer::class.java, StringDeserializer::class.java)
+                            .build()
+
                     }
 
                     KafkaConsumer<String, String>(consumerProperties)
