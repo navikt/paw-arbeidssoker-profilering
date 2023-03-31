@@ -57,15 +57,15 @@ services:
                   "requestParam": "scope",
                   "match": "openid somescope",
                   "claims": {
-                    "sub": "admin@arbeidssokerregisterert",
-                    "aud": ["arbeidssokerregistreret"]
+                    "sub": "admin@arbeidssokerregistrering",
+                    "aud": ["paw-arbeidssoker-profilering"]
                   }
                 },
                 {
                   "requestParam": "scope",
                   "match": "default",
                   "claims": {
-                    "aud": ["arbeidssokerregistreret"]
+                    "aud": ["paw-arbeidssoker-profilering"]
                   }
                 }
               ]

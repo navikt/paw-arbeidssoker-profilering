@@ -1,6 +1,7 @@
 package no.nav.paw.config
 
 import io.github.cdimascio.dotenv.dotenv
+import no.nav.security.token.support.v2.RequiredClaims
 
 val dotenv = dotenv { ignoreIfMissing = true }
 
@@ -16,6 +17,15 @@ data class Config(
     val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
         dotenv["UNLEASH_URL"],
         dotenv["NAIS_APP_NAME"]
+    ),
+    val authentication: List<AuthProvider> = listOf(
+        // IDPORTEN
+        AuthProvider(
+            name = "idporten",
+            discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],
+            acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
+            cookieName = "selvbetjening-idtoken",
+        )
     ),
     val kafka: KafkaConfig = KafkaConfig(
         dotenv["KAFKA_BROKER_URL"],
@@ -80,6 +90,14 @@ data class ServiceClientConfig(
 data class UnleashClientConfig(
     val url: String,
     val appName: String
+)
+
+data class AuthProvider(
+    val name: String,
+    val discoveryUrl: String,
+    val acceptedAudience: List<String>,
+    val cookieName: String? = null,
+    val requiredClaims: RequiredClaims? = null
 )
 
 enum class NaisEnv(val clusterName: String) {

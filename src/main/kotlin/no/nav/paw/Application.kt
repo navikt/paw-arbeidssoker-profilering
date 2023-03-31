@@ -7,6 +7,7 @@ import io.ktor.server.routing.routing
 import no.nav.paw.config.Config
 import no.nav.paw.config.migrateDatabase
 import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
+import no.nav.paw.plugins.configureAuthentication
 import no.nav.paw.plugins.configureDependencyInjection
 import no.nav.paw.plugins.configureHTTP
 import no.nav.paw.plugins.configureLogging
@@ -28,6 +29,7 @@ fun Application.module() {
 
     // Plugins
     configureDependencyInjection(config)
+    configureAuthentication(config.authentication)
     configureHTTP()
     configureLogging()
     configureSerialization()

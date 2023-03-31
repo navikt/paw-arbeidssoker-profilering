@@ -1,34 +1,49 @@
 openapi: "3.0.3"
 info:
-  title: "arbeidssoker_profilering API"
-  description: "arbeidssoker_profilering API"
+  title: "paw_arbeidssoker_profilering API"
+  description: "paw_arbeidssoker_profilering API"
   version: "1.0.0"
 servers:
-- url: "https://arbeidssoker_profilering"
+- url: "https://arbeidssoker-profilering.intern.dev.nav.no"
 paths:
   /api/v1/profilering:
     get:
       description: ""
       responses:
-        "200":
-          description: "OK"
-          content:
-            '*/*':
-              schema:
-                $ref: "#/components/schemas/Unit"
-  /api/v1/profilering/standard-innsats:
-    get:
-      description: ""
-      responses:
-        "200":
-          description: "OK"
+        "404":
+          description: "Not Found"
           content:
             '*/*':
               schema:
                 type: "string"
               examples:
                 Example#1:
-                  value: "OK"
+                  value: "Arbeidssøker ikke funnet"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProfileringDto"
+  /api/v1/profilering/standard-innsats:
+    get:
+      description: ""
+      responses:
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: "Arbeidssøker ikke funnet"
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "boolean"
   /internal/isAlive:
     get:
       description: ""
@@ -66,6 +81,21 @@ paths:
           type: "string"
 components:
   schemas:
-    Unit:
+    ProfileringDto:
       type: "object"
-      properties: {}
+      properties:
+        id:
+          type: "integer"
+          format: "int32"
+        innsatsgruppe:
+          type: "string"
+          enum:
+          - "STANDARD_INNSATS"
+          - "SITUASJONSBESTEMT_INNSATS"
+          - "BEHOV_FOR_ARBEIDSEVNEVURDERING"
+        opprettet:
+          type: "string"
+          format: "date-time"
+        endret:
+          type: "string"
+          format: "date-time"
