@@ -9,6 +9,8 @@ spec:
   azure:
     application:
       enabled: true
+  secureLogs:
+    enabled: true
   image: {{ image }}
   ingresses:
     - https://arbeidssoker-profilering.intern.dev.nav.no
