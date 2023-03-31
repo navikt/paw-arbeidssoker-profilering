@@ -11,7 +11,7 @@ class TokenService {
     }
 
     fun exchangeTokenXToken(scope: String, token: String): String {
-        logger.info("Veksler TokenX-token mot ${scope}")
+        logger.info("Veksler TokenX-token mot $scope")
         return tokendingsClient.exchangeOnBehalfOfToken(scope, token)
     }
 
