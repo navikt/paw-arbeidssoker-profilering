@@ -10,6 +10,8 @@ spec:
     application:
       enabled: true
   image: {{ image }}
+  ingresses:
+    - https://arbeidssoker-profilering.intern.dev.nav.no
   port: 3000
   replicas:
     min: 1
