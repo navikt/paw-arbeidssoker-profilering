@@ -16,7 +16,7 @@ import org.koin.ktor.ext.inject
 
 fun Route.apiRoutes() {
     val profileringService: ProfileringService by inject()
-    // TODO: Endre denne til å hente pid fra token
+
     authenticate("idporten") {
         route("/api/v1") {
             get("/profilering") {

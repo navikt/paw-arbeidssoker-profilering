@@ -24,7 +24,7 @@ data class Config(
             name = "idporten",
             discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
-            cookieName = "selvbetjening-idtoken",
+            cookieName = "selvbetjening-idtoken"
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
