@@ -14,7 +14,7 @@ spec:
   image: {{ image }}
   ingresses:
     - https://arbeidssoker-profilering.intern.dev.nav.no
-  port: 3000
+  port: 8080
   replicas:
     min: 1
     max: 1
