@@ -29,7 +29,7 @@ spec:
     - name: KAFKA_CONSUMER_GROUP_ID
       value: arbeidssoker-profilering-consumer-v1
     - name: KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC
-      value: paw.arbeidssoker-profilering-endring-v1
+      value: paw.arbeidssoker-profilert-v1
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-profilering-producer-v1
     - name: AAREG_URL
