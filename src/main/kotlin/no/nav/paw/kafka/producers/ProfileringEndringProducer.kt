@@ -2,7 +2,6 @@ package no.nav.paw.kafka.producers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.common.kafka.producer.KafkaProducerClient
-import no.nav.paw.config.Config
 import no.nav.paw.domain.ProfileringEndringMelding
 import no.nav.paw.utils.logger
 import org.apache.kafka.clients.producer.ProducerRecord
