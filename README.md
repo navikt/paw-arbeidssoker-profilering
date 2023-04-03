@@ -59,7 +59,6 @@ style G text-align:left
 - [**Flyway**](https://flywaydb.org/)
 - [**Gradle**](https://gradle.org/)
 
-
 ## Lokalt oppsett
 
 Under er det satt opp et par ting som må på plass for at applikasjonen og databasen skal fungere.
@@ -87,6 +86,7 @@ docker-compose up -d
 ```
 
 Se at alle kjører med
+
 ```sh
 docker ps
 ```
@@ -126,7 +126,11 @@ Vi benytter mock-ouath2-server til å utstede tokens på lokal maskin. Følgende
 
 8. Eksempel:
 
+```sh
 $ curl localhost:8080/api/v1/profilering -H 'Authorization: Bearer <access_token>'
+```
+
+eller benytt en REST-klient (f.eks. [insomnia](https://insomnia.rest/) eller [Postman](https://www.postman.com/product/rest-client/)
 
 ## Kafka
 
