@@ -8,6 +8,7 @@ import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
 import no.nav.paw.domain.ProfileringDto
 import no.nav.paw.domain.beregnInnsatsgruppe
+import no.nav.paw.domain.tilEndeligePerioder
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
 import java.time.LocalDate
@@ -33,17 +34,22 @@ class ProfileringService(
     private fun profilerBruker(arbeidssokerRegistrertMelding: ArbeidssokerRegistrert): Profilering {
         val (foedselsnummer) = arbeidssokerRegistrertMelding
 
-        val dagensDato = LocalDate.now()
-        val etAarSiden = dagensDato.minusYears(1)
+        val etAarSiden = LocalDate.now().minusYears(1)
         val etAarsverk = 230
 
         val antallDagerISisteAar =
             runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
-                .map { it.ansettelsesperiode.periode }
-                .filter { it.tom == null || it.tom!! >= etAarSiden }
-                .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom ?: dagensDato) }
+                .tilEndeligePerioder()
+                .filter { it.tom >= etAarSiden }
+                .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom) }
 
-        // TODO: Sjekke om dette blir riktig
+        /* Mulig vi skal benytte denne i stedet?
+        val oppfyllerKravTilArbeidserfaring =
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
+                .tilEndeligePerioder()
+                .harJobbetSammenhengendeSeksAvTolvSisteManeder()
+         */
+
         val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (etAarsverk / 2)
         val alder = foedselsnummer.alder
 
