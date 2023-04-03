@@ -4,7 +4,7 @@ import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class PerioderKtTest {
+class EndeligPeriodeKtTest {
 
     val dagensDato = LocalDate.of(2023, 12, 1)
 

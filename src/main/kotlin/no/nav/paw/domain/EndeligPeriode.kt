@@ -3,15 +3,15 @@ package no.nav.paw.domain
 import no.nav.paw.aareg.Arbeidsforhold
 import java.time.LocalDate
 
-fun List<Arbeidsforhold>.tilEndeligePerioder(): List<EndeligPeriode> = this
-    .map { it.ansettelsesperiode.periode }
-    .map { EndeligPeriode(it.fom, it.tom ?: LocalDate.now()) }
-    .sortedByDescending { it.fom }
-
 data class EndeligPeriode(
     val fom: LocalDate,
     val tom: LocalDate
 )
+
+fun List<Arbeidsforhold>.tilEndeligePerioder(): List<EndeligPeriode> = this
+    .map { it.ansettelsesperiode.periode }
+    .map { EndeligPeriode(it.fom, it.tom ?: LocalDate.now()) }
+    .sortedByDescending { it.fom }
 
 fun List<EndeligPeriode>.harJobbetSammenhengendeSeksAvTolvSisteManeder(dagensDato: LocalDate = LocalDate.now()): Boolean {
     val siste12Maaneder = (0..11).map { dagensDato.minusMonths(it.toLong()) }.toSet()
