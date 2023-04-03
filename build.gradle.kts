@@ -72,6 +72,9 @@ tasks {
             showStandardStreams = true
         }
     }
+    check {
+        dependsOn("installKotlinterPrePushHook")
+    }
 }
 
 tasks.register<Jar>("uberJar") {
