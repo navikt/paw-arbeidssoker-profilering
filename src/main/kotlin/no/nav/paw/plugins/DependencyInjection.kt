@@ -40,10 +40,6 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single {
-                    config
-                }
-
-                single {
                     HttpClient {
                         install(ContentNegotiation) {
                             jackson()
@@ -108,13 +104,14 @@ fun Application.configureDependencyInjection(config: Config) {
                     AaregClient(config.aaregClientConfig.url) {
                         when (NaisEnv.current()) {
                             NaisEnv.Local -> "testToken"
+
                             else -> TokenService().createMachineToMachineToken(config.aaregClientConfig.scope)
                         }
                     }
                 }
 
                 single { ProfileringRepository(get()) }
-                single { ProfileringEndringProducer(get(), get(), get()) }
+                single { ProfileringEndringProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic, get()) }
                 single { ProfileringService(get(), get(), get(), get()) }
                 single {
                     ArbeidssokerRegistreringConsumer(

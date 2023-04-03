@@ -19,7 +19,6 @@ data class Config(
         dotenv["NAIS_APP_NAME"]
     ),
     val authentication: List<AuthProvider> = listOf(
-        // IDPORTEN
         AuthProvider(
             name = "idporten",
             discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],

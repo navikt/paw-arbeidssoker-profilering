@@ -10,11 +10,10 @@ import java.util.UUID
 
 class ProfileringEndringProducer(
     private val kafkaProducerClient: KafkaProducerClient<String, String>,
-    private val config: Config,
+    private val topic: String,
     private val objectMapper: ObjectMapper
 ) {
     fun publish(value: ProfileringEndringMelding) {
-        val (topic) = config.kafka.producers.arbeidssokerEndringer
         val record: ProducerRecord<String, String> = ProducerRecord(
             topic,
             UUID.randomUUID().toString(),
