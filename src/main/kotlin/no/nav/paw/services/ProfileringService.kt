@@ -47,6 +47,7 @@ class ProfileringService(
         val oppfyllerKravTilArbeidserfaring =
             runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
                 .tilEndeligePerioder()
+                .slaaSammenPerioder()
                 .harJobbetSammenhengendeSeksAvTolvSisteManeder()
          */
 

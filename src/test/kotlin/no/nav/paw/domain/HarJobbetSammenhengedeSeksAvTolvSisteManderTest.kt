@@ -5,7 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class EndeligPeriodeKtTest {
+class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
 
     val dagensDato = LocalDate.of(2023, 12, 1)
 
