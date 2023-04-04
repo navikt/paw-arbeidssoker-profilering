@@ -19,5 +19,6 @@ fun List<EndeligPeriode>.harJobbetSammenhengendeSeksAvTolvSisteManeder(dagensDat
     val antallSammenhengendeMaaneder = jobbMaaneder.fold(0) { antall, dato ->
         if (antall > 0 && dato.minusMonths(1) !in jobbMaaneder) 1 else antall + 1
     }
+    println(antallSammenhengendeMaaneder)
     return antallSammenhengendeMaaneder >= 6
 }

@@ -23,7 +23,7 @@ val dotenv_kotlin_version: String by project
 val nocommons_version: String by project
 
 plugins {
-    kotlin("jvm") version "1.8.10"
+    kotlin("jvm") version "1.8.20"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jmailen.kotlinter") version "3.13.0"
 }
@@ -134,5 +134,4 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:$testcontainers_version")
     testImplementation("org.testcontainers:postgresql:$testcontainers_postgres_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
-    testImplementation("org.junit.jupiter:junit-jupiter:$junit_jupiter_version")
 }
