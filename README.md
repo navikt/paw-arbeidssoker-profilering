@@ -10,12 +10,14 @@ https://arbeidssoker-profilering.intern.dev.nav.no/docs
 
 ```mermaid
 graph TD
-    A["Arbeidssøker registrert melding fra kafka
-    <code>paw.arbeidssoker-registrering-v2</code>
-    "]
+    ARBEIDSOKER_REGISTRERT["Arbeidssøker registrert"]
 
-    B["{
-    <pre>
+    ARBEIDSSOKER_REGISTRERT_MELDING["Sender arbeidssøker registrert melding til kafka"]
+
+    ARBEIDSSOKER_REGISTRERT_KAFKA_MELDING["
+    <center><code>topic: paw.arbeidssoker-registrering-v2</code></center>
+<pre>
+{
     &quot;foedselsnummer&quot;: { &quot;verdi&quot;: &quot;18908396568&quot; },
     &quot;aktorId&quot;: { &quot;aktorId&quot;: &quot;2862185140226&quot; },
     &quot;besvarelse&quot;: {
@@ -30,22 +32,74 @@ graph TD
     &quot;tilbakeIArbeid&quot;: null
   },
   &quot;opprettetDato&quot;: &quot;2023-03-23T13:05:21.097314+01:00&quot;
-  }"]
-  C["Profilering"]
-  D["Lagre profilering"]
-  F["Sender melding til kafka
-  <code>arbeidssoker-profilert-v1</code>"]
-  G["<pre>{
+}
+</pre>"]
+
+  HENT_ARBEIDSSOKER_REGISTRERING["Henter arbeidssøker registrert melding"]
+
+  PROFILERING["Profilering"]
+
+  LAGRE_PROFILERING["Lagre profilering"]
+
+  ARBEIDSSOKER_PROFILERT_MELDING["Sender profilert melding til kafka"]
+
+  ARBEIDSSOKER_PROFILERT_MELDING_KAFKA["
+<center><code>topic: paw.arbeidssoker-profilert-v1</code></center>
+<pre>
+{
     &quot;id&quot;: 1,
     &quot;foedselsnummer&quot;: 18908396568,
     &quot;innsatsgruppe&quot;: &quot;STANDARD_INNSATS&quot;
-  }"]
+}
+</pre>"]
 
-A-->B-->C-->D-->F-->G
+subgraph <b>veilarbregistrering</b>
+ARBEIDSOKER_REGISTRERT-->ARBEIDSSOKER_REGISTRERT_MELDING
+end
+
+subgraph <b>Kafka</b>
+ARBEIDSSOKER_REGISTRERT_MELDING-->ARBEIDSSOKER_REGISTRERT_KAFKA_MELDING
+end
+
+ARBEIDSSOKER_REGISTRERT_KAFKA_MELDING-->HENT_ARBEIDSSOKER_REGISTRERING
+
+subgraph <b>paw-arbeidssoker-profilering</b>
+HENT_ARBEIDSSOKER_REGISTRERING-->PROFILERING
+PROFILERING-->LAGRE_PROFILERING
+LAGRE_PROFILERING-->ARBEIDSSOKER_PROFILERT_MELDING
+end
+
+subgraph <b>Kafka</b>
+ARBEIDSSOKER_PROFILERT_MELDING-->ARBEIDSSOKER_PROFILERT_MELDING_KAFKA
+end
 
 
-style B text-align:left
-style G text-align:left
+style ARBEIDSSOKER_REGISTRERT_KAFKA_MELDING text-align:left
+style ARBEIDSSOKER_PROFILERT_MELDING_KAFKA text-align:left
+```
+
+## Flytdiagram av beregn innsatsgruppe
+
+```mermaid
+graph LR
+    Start --> Arbeidsevnevurdering(Behov for arbeidsevnevurdering)
+    Start --> Standard(Standard innsats)
+    Start --> Situasjonsbestemt(Situasjonsbestemt innsats)
+
+    Arbeidsevnevurdering((Behov for arbeidsevnevurdering)) -->
+    IF1(If besvarelse.helseHinder == JA or<br> besvarelse.andreForhold == JA)-->InnsatsgruppeArbeidsevnevurdering(Innsatsgruppe.BEHOV_FOR_ARBEIDSEVNEVURDERING)
+
+    Situasjonsbestemt((Situasjonsbestemt innsats)) --> IF2(If not conditions for Standard innsats) --> InnsatsgruppeSituasjonsbestemt(Innsatsgruppe.SITUASJONSBESTEMT_INNSATS)
+
+    Standard((Standard innsats)) --> IF3(If<br>alder in 18..59<br>oppfyllerKravTilArbeidserfaring<br>besvarelse.utdanning != INGEN_UTDANNING<br>besvarelse.utdanningBestatt == JA<br>besvarelse.utdanningGodkjent == JA<br>besvarelse.helseHinder == NEI<br>besvarelse.andreForhold == NEI)--> InnsatsgruppeStandard(Innsatsgruppe.STANDARD_INNSATS)
+
+    style Start fill:#a8e6cf
+    style Arbeidsevnevurdering fill:#ffd3b4
+    style Situasjonsbestemt fill:#ffd3b4
+    style Standard fill:#ffd3b4
+    style InnsatsgruppeArbeidsevnevurdering fill:#f9f7d9
+    style InnsatsgruppeSituasjonsbestemt fill:#f9f7d9
+    style InnsatsgruppeStandard fill:#f9f7d9
 ```
 
 ## Teknologier
