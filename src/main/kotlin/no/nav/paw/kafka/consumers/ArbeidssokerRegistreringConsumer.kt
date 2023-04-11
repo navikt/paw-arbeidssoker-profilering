@@ -40,8 +40,8 @@ class ArbeidssokerRegistreringConsumer(
                     logger.info("Mottok melding fra $topic: ${post.value()}")
 
                     consumer.commitAsync()
-                } catch (err: Exception) {
-                    logger.error("Feil ved konsumering av melding fra $topic: ${err.message}")
+                } catch (error: Exception) {
+                    logger.error("Feil ved konsumering av melding fra $topic: ${error.message}")
                 }
             }
         }
