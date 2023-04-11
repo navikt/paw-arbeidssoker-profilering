@@ -1,0 +1,16 @@
+{
+  "foedselsnummer": { "verdi": "18908396568"},
+  "aktorId": { "aktorId": "2862185140226" },
+  "besvarelse": {
+    "utdanning": "GRUNNSKOLE",
+    "utdanningBestatt": "JA",
+    "utdanningGodkjent": "JA",
+    "helseHinder": "JA",
+    "andreForhold": "JA",
+    "sisteStilling": "INGEN_SVAR",
+    "dinSituasjon": "MISTET_JOBBEN",
+    "fremtidigSituasjon": null,
+    "tilbakeIArbeid": null
+  },
+  "opprettetDato": "2023-03-23T13:05:21.097314+01:00"
+}

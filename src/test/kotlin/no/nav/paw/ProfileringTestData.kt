@@ -5,7 +5,7 @@ import no.nav.paw.domain.Innsatsgruppe
 import no.nav.paw.domain.Profilering
 
 object ProfileringTestData {
-    val foedselsnummer = Foedselsnummer("12345678901")
+    val foedselsnummer = Foedselsnummer("18908396568")
     val profilering = Profilering(null, Innsatsgruppe.STANDARD_INNSATS, 22, false)
-    val besvarelse = "{}"
+    const val tomBesvarelse = "{}"
 }

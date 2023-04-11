@@ -22,7 +22,7 @@ class SlaaSammenPerioder {
     }
 
     @Test
-    fun `slaaSammenPerioder slår sammen overlappende perioder`() {
+    fun `slår sammen overlappende perioder`() {
         val perioder = listOf(
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 10)),
             EndeligPeriode(LocalDate.of(2022, 1, 5), LocalDate.of(2022, 1, 15)),

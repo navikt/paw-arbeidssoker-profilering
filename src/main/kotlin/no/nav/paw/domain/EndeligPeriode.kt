@@ -24,14 +24,14 @@ fun List<EndeligPeriode>.harJobbetSammenhengendeSeksAvTolvSisteManeder(dagensDat
 
 fun List<EndeligPeriode>.slaaSammenPerioder(antallDagerOpphold: Long = 3L): List<EndeligPeriode> {
     return this.sortedBy { it.fom }
-        .fold(mutableListOf()) { sammenslatt, gjeldende ->
-            val siste = sammenslatt.lastOrNull()
+        .fold(mutableListOf()) { sammenslaatt, gjeldende ->
+            val siste = sammenslaatt.lastOrNull()
             if (siste == null || siste.tom.plusDays(antallDagerOpphold) < gjeldende.fom) {
-                sammenslatt.add(gjeldende)
+                sammenslaatt.add(gjeldende)
             } else {
-                sammenslatt.removeLast()
-                sammenslatt.add(EndeligPeriode(siste.fom, maxOf(siste.tom, gjeldende.tom)))
+                sammenslaatt.removeLast()
+                sammenslaatt.add(EndeligPeriode(siste.fom, maxOf(siste.tom, gjeldende.tom)))
             }
-            sammenslatt
+            sammenslaatt
         }
 }

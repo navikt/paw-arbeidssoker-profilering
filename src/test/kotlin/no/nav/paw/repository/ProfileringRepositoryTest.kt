@@ -2,6 +2,7 @@ package no.nav.paw.repository
 
 import no.nav.paw.ProfileringTestData
 import no.nav.paw.utils.TestDatabase
+import no.nav.paw.utils.TestDatabase.setupDataSource
 import javax.sql.DataSource
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -13,7 +14,8 @@ class ProfileringRepositoryTest {
 
     @BeforeTest
     fun before() {
-        dataSource = TestDatabase.setup()
+        val testDatabase = TestDatabase.setup()
+        dataSource = setupDataSource(testDatabase)
         repository = ProfileringRepository(dataSource)
     }
 
@@ -22,7 +24,7 @@ class ProfileringRepositoryTest {
         val resultat = repository.opprett(
             ProfileringTestData.foedselsnummer,
             ProfileringTestData.profilering,
-            ProfileringTestData.besvarelse
+            ProfileringTestData.tomBesvarelse
         )
 
         assertEquals(1, resultat)
@@ -33,12 +35,12 @@ class ProfileringRepositoryTest {
         repository.opprett(
             ProfileringTestData.foedselsnummer,
             ProfileringTestData.profilering,
-            ProfileringTestData.besvarelse
+            ProfileringTestData.tomBesvarelse
         )
 
-        val resultat = repository.hentSiste(ProfileringTestData.foedselsnummer)
+        val sisteProfilering = repository.hentSiste(ProfileringTestData.foedselsnummer)
 
-        println(resultat)
-        assertEquals(ProfileringTestData.profilering.innsatsgruppe, resultat?.innsatsgruppe)
+        println(sisteProfilering)
+        assertEquals(ProfileringTestData.profilering.innsatsgruppe, sisteProfilering?.innsatsgruppe)
     }
 }
