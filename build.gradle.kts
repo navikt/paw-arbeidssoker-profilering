@@ -93,6 +93,7 @@ dependencies {
     implementation("no.nav.common:token-client:$nav_common_modules_version")
     implementation("no.nav.common:kafka:$nav_common_modules_version")
     implementation("no.nav.common:feature-toggle:$nav_common_modules_version")
+    implementation("no.nav.common:log:$nav_common_modules_version")
 
     // NAV security
     implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
