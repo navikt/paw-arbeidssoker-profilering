@@ -41,7 +41,6 @@ class ArbeidssokerRegistreringConsumer(
                 } catch (err: RuntimeException) {
                     logger.error("Feil ved konsumering av melding fra $topic: ${err.message}")
                 }
-
             }
             consumer.commitAsync()
         }
