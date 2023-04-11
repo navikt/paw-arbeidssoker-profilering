@@ -54,13 +54,13 @@ spec:
   kafka:
     pool: nav-dev
   accessPolicy:
-      external:
-        - host: aareg-services-q1.dev-fss-pub.nais.io
       outbound:
           rules:
             - application: aareg-services-nais-q1
               namespace: arbeidsforhold
               cluster: dev-fss
+          external:
+            - host: aareg-services-q1.dev-fss-pub.nais.io
   gcp:
     sqlInstances:
       - type: POSTGRES_14
