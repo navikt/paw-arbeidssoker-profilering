@@ -38,7 +38,7 @@ class ProfileringService(
         val etAarsverk = 230
 
         val antallDagerISisteAar =
-            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.foedselsnummer, UUID.randomUUID().toString()) }
                 .tilEndeligePerioder()
                 .filter { it.tom >= etAarSiden }
                 .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom) }
