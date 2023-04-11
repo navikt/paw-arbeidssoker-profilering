@@ -33,10 +33,15 @@ class ArbeidssokerRegistreringConsumer(
         while (true) {
             val poster = consumer.poll(Duration.ofMillis(300))
             for (post in poster) {
-                val arbeidssokerRegistrertMelding: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
-                profileringService.opprettProfilering(arbeidssokerRegistrertMelding)
+                try {
+                    val arbeidssokerRegistrertMelding: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
+                    profileringService.opprettProfilering(arbeidssokerRegistrertMelding)
 
-                logger.info("Mottok melding fra $topic: ${post.value()}")
+                    logger.info("Mottok melding fra $topic: ${post.value()}")
+                } catch (err: RuntimeException) {
+                    logger.error("Feil ved konsumering av melding fra $topic: ${err.message}")
+                }
+
             }
             consumer.commitAsync()
         }
