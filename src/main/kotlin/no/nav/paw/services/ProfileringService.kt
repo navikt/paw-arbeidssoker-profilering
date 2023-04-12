@@ -8,11 +8,11 @@ import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
 import no.nav.paw.domain.ProfileringDto
 import no.nav.paw.domain.beregnInnsatsgruppe
+import no.nav.paw.domain.harJobbetSammenhengendeSeksAvTolvSisteManeder
+import no.nav.paw.domain.slaaSammenPerioder
 import no.nav.paw.domain.tilEndeligePerioder
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
-import java.time.LocalDate
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 class ProfileringService(
@@ -34,24 +34,23 @@ class ProfileringService(
     private fun profilerBruker(arbeidssokerRegistrertMelding: ArbeidssokerRegistrert): Profilering {
         val (foedselsnummer) = arbeidssokerRegistrertMelding
 
+        /* Mulig vi beregne et halvt årsverk i stedet?
         val etAarSiden = LocalDate.now().minusYears(1)
         val etAarsverk = 230
-
         val antallDagerISisteAar =
-            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.foedselsnummer, UUID.randomUUID().toString()) }
                 .tilEndeligePerioder()
                 .filter { it.tom >= etAarSiden }
                 .sumOf { ChronoUnit.DAYS.between(it.fom, it.tom) }
+        val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (etAarsverk / 2)
+         */
 
-        /* Mulig vi skal benytte denne i stedet?
         val oppfyllerKravTilArbeidserfaring =
-            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.verdi, UUID.randomUUID().toString()) }
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.foedselsnummer, UUID.randomUUID().toString()) }
                 .tilEndeligePerioder()
                 .slaaSammenPerioder()
                 .harJobbetSammenhengendeSeksAvTolvSisteManeder()
-         */
 
-        val oppfyllerKravTilArbeidserfaring = antallDagerISisteAar > (etAarsverk / 2)
         val alder = foedselsnummer.alder
 
         val innsatsgruppe =

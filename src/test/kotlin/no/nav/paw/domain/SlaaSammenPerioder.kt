@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 
 class SlaaSammenPerioder {
     @Test
-    fun `slå sammen perioder med opphold med 3 dager eller mindre`() {
+    fun `slår sammen perioder med opphold med 3 dager eller mindre`() {
         val perioder = listOf(
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 3)),
             EndeligPeriode(LocalDate.of(2022, 1, 5), LocalDate.of(2022, 1, 7)),
@@ -37,7 +37,7 @@ class SlaaSammenPerioder {
     }
 
     @Test
-    fun `slaaSammenPerioder slår ikke sammen perioder som ikke overlapper`() {
+    fun `slår ikke sammen perioder som ikke overlapper`() {
         val perioder = listOf(
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 10)),
             EndeligPeriode(LocalDate.of(2022, 1, 15), LocalDate.of(2022, 1, 20)),
@@ -53,7 +53,7 @@ class SlaaSammenPerioder {
     }
 
     @Test
-    fun `slaaSammenPerioder slår sammen perioder med opphold på mindre enn antallDagerOpphold`() {
+    fun `slår sammen perioder med opphold på mindre enn antallDagerOpphold`() {
         val perioder = listOf(
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 10)),
             EndeligPeriode(LocalDate.of(2022, 1, 12), LocalDate.of(2022, 1, 15)),

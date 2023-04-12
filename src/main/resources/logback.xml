@@ -18,13 +18,13 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
     </appender>
 
-<if condition='isDefined("NAIS_CLUSTER_NAME")'>
-    <then>
-        <logger name="tjenestekall" level="DEBUG" additivity="false">
-            <appender-ref ref="secureLog" />
-        </logger>
-    </then>
-</if>
+    <if condition='isDefined("NAIS_CLUSTER_NAME")'>
+        <then>
+            <logger name="tjenestekall" level="DEBUG" additivity="false">
+                <appender-ref ref="secureLog" />
+            </logger>
+        </then>
+    </if>
 
     <logger name="org.apache.kafka" level="WARN" />
     <logger name="no.nav" level="INFO" />

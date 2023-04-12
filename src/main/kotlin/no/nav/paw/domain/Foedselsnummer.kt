@@ -5,8 +5,8 @@ import no.nav.paw.config.NaisEnv
 import java.time.LocalDate
 import java.time.Period
 
-data class Foedselsnummer(val verdi: String) {
-    val alder: Int get() = alderForFnr(verdi, LocalDate.now())
+data class Foedselsnummer(val foedselsnummer: String) {
+    val alder: Int get() = alderForFnr(foedselsnummer, LocalDate.now())
     override fun toString(): String = "*".repeat(11)
 }
 

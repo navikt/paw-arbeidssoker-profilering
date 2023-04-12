@@ -15,7 +15,7 @@ class ProfileringRepository(private val dataSource: DataSource) {
             val query =
                 queryOf(
                     "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, besvarelse) VALUES (?, ?, ?::jsonb)",
-                    foedselsnummer.verdi,
+                    foedselsnummer.foedselsnummer,
                     profilering.innsatsgruppe.toString(),
                     besvarelse
                 ).asUpdate
@@ -28,7 +28,7 @@ class ProfileringRepository(private val dataSource: DataSource) {
             val query =
                 queryOf(
                     "SELECT * FROM $PROFILERING_TABELL WHERE foedselsnummer = ? ORDER BY endret DESC LIMIT 1",
-                    foedselsnummer.verdi
+                    foedselsnummer.foedselsnummer
                 ).map { it.tilProfilering() }.asSingle
             return session.run(query)
         }
