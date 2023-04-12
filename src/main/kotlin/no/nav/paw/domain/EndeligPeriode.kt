@@ -27,10 +27,10 @@ fun List<EndeligPeriode>.slaaSammenPerioder(antallDagerOpphold: Long = 3L): List
         .fold(mutableListOf()) { sammenslatt, gjeldende ->
             val siste = sammenslatt.lastOrNull()
             if (siste == null || siste.tom.plusDays(antallDagerOpphold) < gjeldende.fom) {
-                sammenslaatt.add(gjeldende)
+                sammenslatt.add(gjeldende)
             } else {
-                sammenslaatt.removeLast()
-                sammenslaatt.add(EndeligPeriode(siste.fom, maxOf(siste.tom, gjeldende.tom)))
+                sammenslatt.removeLast()
+                sammenslatt.add(EndeligPeriode(siste.fom, maxOf(siste.tom, gjeldende.tom)))
             }
-            sammenslaatt
+            sammenslatt
         }
