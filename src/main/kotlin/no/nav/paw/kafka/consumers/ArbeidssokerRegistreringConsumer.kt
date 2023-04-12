@@ -41,7 +41,7 @@ class ArbeidssokerRegistreringConsumer(
                     consumer.commitSync()
                 } catch (error: Exception) {
                     logger.error("Feil ved konsumering av melding fra $topic: ${error.message}")
-                    consumer.commitSync()
+                    throw error
                 }
             }
         }
