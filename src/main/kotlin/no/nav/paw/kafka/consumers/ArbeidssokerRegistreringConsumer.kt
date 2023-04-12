@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import no.nav.common.featuretoggle.UnleashClient
 import no.nav.paw.domain.ArbeidssokerRegistrert
 import no.nav.paw.services.ProfileringService
+import no.nav.paw.utils.CallId.leggTilCallId
 import no.nav.paw.utils.logger
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import java.time.Duration
@@ -29,8 +30,9 @@ class ArbeidssokerRegistreringConsumer(
         }
 
         while (true) {
-            consumer.poll(Duration.ofMillis(300)).forEach { post ->
+            consumer.poll(Duration.ofMillis(500)).forEach { post ->
                 try {
+                    leggTilCallId()
                     val arbeidssokerRegistrert: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
                     profileringService.opprettProfilering(arbeidssokerRegistrert)
 
@@ -39,6 +41,7 @@ class ArbeidssokerRegistreringConsumer(
                     consumer.commitSync()
                 } catch (error: Exception) {
                     logger.error("Feil ved konsumering av melding fra $topic: ${error.message}")
+                    consumer.commitSync()
                 }
             }
         }

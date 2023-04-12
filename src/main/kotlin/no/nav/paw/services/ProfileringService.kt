@@ -13,7 +13,7 @@ import no.nav.paw.domain.slaaSammenPerioder
 import no.nav.paw.domain.tilEndeligePerioder
 import no.nav.paw.kafka.producers.ProfileringEndringProducer
 import no.nav.paw.repository.ProfileringRepository
-import java.util.*
+import no.nav.paw.utils.CallId.callId
 
 class ProfileringService(
     private val profileringRepository: ProfileringRepository,
@@ -46,7 +46,7 @@ class ProfileringService(
          */
 
         val oppfyllerKravTilArbeidserfaring =
-            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.foedselsnummer, UUID.randomUUID().toString()) }
+            runBlocking { aaregClient.hentArbeidsforhold(foedselsnummer.foedselsnummer, callId) }
                 .tilEndeligePerioder()
                 .slaaSammenPerioder()
                 .harJobbetSammenhengendeSeksAvTolvSisteManeder()
