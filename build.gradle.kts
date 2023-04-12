@@ -21,9 +21,10 @@ val aareg_client_version: String by project
 val junit_jupiter_version: String by project
 val dotenv_kotlin_version: String by project
 val nocommons_version: String by project
+val mock_oauth2_server_version: String by project
 
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.8.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jmailen.kotlinter") version "3.13.0"
 }
@@ -132,6 +133,8 @@ dependencies {
     // Test
     testImplementation(kotlin("test"))
     testImplementation("org.testcontainers:testcontainers:$testcontainers_version")
-    testImplementation("org.testcontainers:postgresql:$testcontainers_postgres_version")
+    testImplementation("org.testcontainers:postgresql:$testcontainers_version")
+    testImplementation("org.testcontainers:kafka:$testcontainers_version")
+    testImplementation("no.nav.security:mock-oauth2-server:$mock_oauth2_server_version")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
 }

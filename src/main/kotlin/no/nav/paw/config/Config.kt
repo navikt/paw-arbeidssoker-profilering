@@ -24,6 +24,7 @@ data class Config(
             discoveryUrl = dotenv["IDPORTEN_WELL_KNOWN_URL"],
             acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
             cookieName = "selvbetjening-idtoken"
+
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(
@@ -54,7 +55,7 @@ data class DatabaseConfig(
     val username: String,
     val password: String
 ) {
-    val jdbcUrl: String get() = "jdbc:postgresql://$host/$database?user=$username&password=$password"
+    val jdbcUrl: String get() = "jdbc:postgresql://$host:$port/$database?user=$username&password=$password"
 }
 
 data class KafkaConfig(
