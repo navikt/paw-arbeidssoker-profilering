@@ -17,12 +17,10 @@ class ArbeidssokerRegistreringConsumer(
     private val objectMapper: ObjectMapper
 ) {
 
-    init {
+    fun start() {
         logger.info("Lytter på topic $topic")
         consumer.subscribe(listOf(topic))
-    }
 
-    fun start() {
         val konsumerArbeidssokerRegistrert =
             unleashClient.isEnabled("paw-arbeidssoker-profilering.consumer-arbeidssoker-registert")
         if (!konsumerArbeidssokerRegistrert) {
@@ -31,15 +29,14 @@ class ArbeidssokerRegistreringConsumer(
         }
 
         while (true) {
-            val poster = consumer.poll(Duration.ofMillis(300))
-            for (post in poster) {
+            consumer.poll(Duration.ofMillis(300)).forEach { post ->
                 try {
-                    val arbeidssokerRegistrertMelding: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
-                    profileringService.opprettProfilering(arbeidssokerRegistrertMelding)
+                    val arbeidssokerRegistrert: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
+                    profileringService.opprettProfilering(arbeidssokerRegistrert)
 
-                    logger.info("Mottok melding fra $topic: ${post.value()}")
+                    logger.info("Mottok melding fra $topic med offset ${post.offset()}p${post.partition()}")
 
-                    consumer.commitAsync()
+                    consumer.commitSync()
                 } catch (error: Exception) {
                     logger.error("Feil ved konsumering av melding fra $topic: ${error.message}")
                 }
