@@ -46,7 +46,7 @@ class AutentiseringsTest {
         val token = oAuth2Server.issueToken(
             issuerId = "default",
             claims = mapOf(
-                "pid" to ProfileringTestData.foedselsnummer.verdi,
+                "pid" to ProfileringTestData.foedselsnummer.foedselsnummer,
                 "acr" to "Level3"
             )
         )
@@ -65,7 +65,7 @@ class AutentiseringsTest {
         val token = oAuth2Server.issueToken(
             issuerId = "feil",
             claims = mapOf(
-                "pid" to ProfileringTestData.foedselsnummer.verdi,
+                "pid" to ProfileringTestData.foedselsnummer.foedselsnummer,
                 "acr" to "Level3"
             )
         )
@@ -84,7 +84,7 @@ class AutentiseringsTest {
         val token = oAuth2Server.issueToken(
             audience = "feil",
             claims = mapOf(
-                "pid" to ProfileringTestData.foedselsnummer.verdi,
+                "pid" to ProfileringTestData.foedselsnummer.foedselsnummer,
                 "acr" to "Level3"
             )
         )
