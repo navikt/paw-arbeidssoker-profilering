@@ -15,10 +15,10 @@ graph TD
     ARBEIDSSOKER_REGISTRERT_MELDING["Sender arbeidssøker registrert melding til kafka"]
 
     ARBEIDSSOKER_REGISTRERT_KAFKA_MELDING["
-    <center><code>topic: paw.arbeidssoker-registrering-v2</code></center>
+    <center><code>topic: paw.arbeidssoker-registrert-v2</code></center>
 <pre>
 {
-    &quot;foedselsnummer&quot;: { &quot;verdi&quot;: &quot;18908396568&quot; },
+    &quot;foedselsnummer&quot;: { &quot;foedselsnummer&quot;: &quot;18908396568&quot; },
     &quot;aktorId&quot;: { &quot;aktorId&quot;: &quot;2862185140226&quot; },
     &quot;besvarelse&quot;: {
     &quot;utdanning&quot;: &quot;GRUNNSKOLE&quot;,
@@ -190,12 +190,12 @@ eller benytt en REST-klient (f.eks. [insomnia](https://insomnia.rest/) eller [Po
 
 ### Producer
 
-Send inn en kafka-melding til `arbeidssoker-registrering-v2`:
+Send inn en kafka-melding til `arbeidssoker-registrert-v2`:
 
 ```sh
 # Eksempel melding
 cat src/main/resources/arbeidssoker-registrert-kafka-melding.json | jq -c .
-docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrering-v2
+docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrert-v2
 ```
 
 ### Consumer
