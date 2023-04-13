@@ -11,32 +11,37 @@ import no.nav.paw.utils.TestDatabase
 import no.nav.paw.utils.TestKafka
 import no.nav.paw.withTestApplication
 import no.nav.security.mock.oauth2.MockOAuth2Server
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.BeforeAll
 import org.testcontainers.containers.KafkaContainer
 import org.testcontainers.containers.PostgreSQLContainer
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class AutentiseringsTest {
-    private lateinit var postgreSQLContainer: PostgreSQLContainer<*>
-    private lateinit var kafkaContainer: KafkaContainer
-    private lateinit var oAuth2Server: MockOAuth2Server
-    private lateinit var config: Config
 
-    @BeforeTest
-    fun before() {
-        oAuth2Server = MockOAuth2Server().also { it.start() }
-        postgreSQLContainer = TestDatabase.setup()
-        kafkaContainer = TestKafka.setup()
-        config = createConfig(oAuth2Server, postgreSQLContainer, kafkaContainer)
-    }
+    companion object {
+        private lateinit var postgreSQLContainer: PostgreSQLContainer<*>
+        private lateinit var kafkaContainer: KafkaContainer
+        private lateinit var oAuth2Server: MockOAuth2Server
+        private lateinit var config: Config
 
-    @AfterTest
-    fun after() {
-        oAuth2Server.shutdown()
-        postgreSQLContainer.stop()
-        kafkaContainer.stop()
+        @BeforeAll
+        @JvmStatic
+        fun beforeAll() {
+            oAuth2Server = MockOAuth2Server().also { it.start() }
+            postgreSQLContainer = TestDatabase.setup()
+            kafkaContainer = TestKafka.setup()
+            config = createConfig(oAuth2Server, postgreSQLContainer, kafkaContainer)
+        }
+
+        @AfterAll
+        @JvmStatic
+        fun afterAll() {
+            oAuth2Server.shutdown()
+            postgreSQLContainer.stop()
+            kafkaContainer.stop()
+        }
     }
 
     @Test

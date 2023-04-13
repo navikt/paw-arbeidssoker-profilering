@@ -71,8 +71,7 @@ fun createConfig(
                 oAuth2Server.wellKnownUrl("default").toString(),
                 listOf("default"),
                 null,
-                RequiredClaims("idporten", arrayOf("pid", "acr"), true)
-
+                RequiredClaims("idporten", arrayOf("pid", "acr"))
             )
         )
     )
