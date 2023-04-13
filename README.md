@@ -20,6 +20,7 @@ graph TD
 {
     &quot;foedselsnummer&quot;: { &quot;foedselsnummer&quot;: &quot;18908396568&quot; },
     &quot;aktorId&quot;: { &quot;aktorId&quot;: &quot;2862185140226&quot; },
+    &quot;registreringsId&quot;: 1,
     &quot;besvarelse&quot;: {
     &quot;utdanning&quot;: &quot;GRUNNSKOLE&quot;,
     &quot;utdanningBestatt&quot;: &quot;JA&quot;,
