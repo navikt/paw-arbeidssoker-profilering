@@ -25,7 +25,7 @@ import no.nav.paw.config.Config
 import no.nav.paw.config.NaisEnv
 import no.nav.paw.config.createDatabaseConfig
 import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
-import no.nav.paw.kafka.producers.ProfileringEndringProducer
+import no.nav.paw.kafka.producers.ArbeidssokerProfilertProducer
 import no.nav.paw.repository.ProfileringRepository
 import no.nav.paw.services.ProfileringService
 import org.apache.kafka.clients.consumer.KafkaConsumer
@@ -127,7 +127,7 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single { ProfileringRepository(get()) }
-                single { ProfileringEndringProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic) }
+                single { ArbeidssokerProfilertProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic) }
                 single { ProfileringService(get(), get(), get()) }
                 single {
                     ArbeidssokerRegistreringConsumer(

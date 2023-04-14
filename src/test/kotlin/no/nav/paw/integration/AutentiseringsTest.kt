@@ -65,7 +65,6 @@ class AutentiseringsTest {
     }
 
     @Test
-    @Ignore
     fun `skal støtte tokenx`() = withTestApplication(config) {
         routing { apiRoutes() }
 

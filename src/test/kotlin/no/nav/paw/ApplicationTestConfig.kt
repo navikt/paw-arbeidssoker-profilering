@@ -58,7 +58,7 @@ fun createConfig(
             null,
             KafkaProducers(
                 KafkaProducer(
-                    dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC"]
+                    dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC"]
                 )
             ),
             KafkaConsumers(

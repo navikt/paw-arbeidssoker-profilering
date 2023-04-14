@@ -9,7 +9,7 @@ import org.apache.kafka.common.header.internals.RecordHeader
 import java.nio.charset.StandardCharsets
 import java.util.*
 
-class ProfileringEndringProducer(
+class ArbeidssokerProfilertProducer(
     private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerProfilertEvent>,
     private val topic: String
 ) {

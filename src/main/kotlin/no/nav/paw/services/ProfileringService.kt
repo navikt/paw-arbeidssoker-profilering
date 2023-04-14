@@ -11,13 +11,13 @@ import no.nav.paw.domain.dto.ProfileringDto
 import no.nav.paw.domain.harJobbetSammenhengendeSeksAvTolvSisteMnd
 import no.nav.paw.domain.slaaSammenPerioder
 import no.nav.paw.domain.tilEndeligePerioder
-import no.nav.paw.kafka.producers.ProfileringEndringProducer
+import no.nav.paw.kafka.producers.ArbeidssokerProfilertProducer
 import no.nav.paw.repository.ProfileringRepository
 import no.nav.paw.utils.CallId.callId
 
 class ProfileringService(
     private val profileringRepository: ProfileringRepository,
-    private val profileringEndringProducer: ProfileringEndringProducer,
+    private val arbeidssokerProfilertProducer: ArbeidssokerProfilertProducer,
     private val aaregClient: AaregClient
 ) {
     fun opprettProfilering(arbeidssokerRegistrert: ArbeidssokerRegistrert) {
@@ -27,7 +27,7 @@ class ProfileringService(
         val id = profileringRepository.opprett(profileringEntity)
 
         val profileringEndringMelding = arbeidssokerProfilert.tilProfileringEndringMeldingDto(id)
-        profileringEndringProducer.publish(profileringEndringMelding)
+        arbeidssokerProfilertProducer.publish(profileringEndringMelding)
     }
 
     fun hentSisteProfilering(foedselsnummer: Foedselsnummer): ProfileringDto? =
