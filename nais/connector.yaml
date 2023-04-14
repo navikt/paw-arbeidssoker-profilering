@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paw-connect-{{topic}}
+  namespace: paw
+  labels:
+    team: paw
+    destination: connect
+    enabled: "true"
+data:
+  data.json: |-
+    {
+      "name": "{{topic}}",
+      "config": {
+        "connector.class": "com.wepay.kafka.connect.bigquery.BigQuerySinkConnector",
+        "autoCreateTables": "true",
+        "sanitizeTopics": "true",
+        "topics": "paw.{{topic}}",
+        "tasks.max": "1",
+        "project": "{{project}}",
+        "defaultDataset": "paw_dataprodukter_kafka",
+        "transforms": "dropPrefix, dropFields",
+        "transforms.dropPrefix.type": "org.apache.kafka.connect.transforms.RegexRouter",
+        "transforms.dropPrefix.regex": "paw\\.(.*)",
+        "transforms.dropPrefix.replacement": "$1",
+        "transforms.dropFields.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+        "transforms.dropFields.blacklist": "foedselsnummer",
+        "allowBigQueryRequiredFieldRelaxation": "true",
+        "allowNewBigQueryFields": "true"
+      }
+    }

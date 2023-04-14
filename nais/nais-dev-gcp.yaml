@@ -34,7 +34,7 @@ spec:
       value: paw.arbeidssoker-registrert-v2
     - name: KAFKA_CONSUMER_GROUP_ID
       value: arbeidssoker-profilering-consumer-v1
-    - name: KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC
+    - name: KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC
       value: paw.arbeidssoker-profilert-v1
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-profilering-producer-v1
