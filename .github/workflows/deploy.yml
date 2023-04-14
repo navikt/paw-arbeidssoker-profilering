@@ -25,7 +25,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         env:
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
-          # env-variabler nødvendig for tester
+          # env-variabler for tester
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_HOST: localhost
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PORT: 5432
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_DATABASE: profilering
@@ -34,6 +34,15 @@ jobs:
           UNLEASH_URL: https://unleash.nais.io/api/
           IDPORTEN_WELL_KNOWN_URL: http://localhost:8081/default/.well-known/openid-configuration
           IDPORTEN_CLIENT_ID: paw-arbeidssoker-profilering
+          NAIS_APP_NAME: paw-arbeidssoker-profilering
+          NAIS_CLUSTER_NAME: local
+          KAFKA_BROKER_URL: localhost:9092
+          KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC: arbeidssoker-registrert-v2
+          KAFKA_CONSUMER_GROUP_ID: arbeidssoker-profilering-consumer-v1
+          KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC: arbeidssoker-profilert-v1
+          KAFKA_PRODUCER_ID: arbeidssoker-profilering-producer-v1
+          AAREG_URL: http://localhost:8090/aareg
+          AAREG_SCOPE: api://dev-gcp.paw.paw-arbeidssoker-profilering/.default
         with:
           arguments: build installDist jar
 
