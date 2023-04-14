@@ -2,7 +2,7 @@ package no.nav.paw.kafka.producers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.common.kafka.producer.KafkaProducerClient
-import no.nav.paw.domain.ProfileringEndringMelding
+import no.nav.paw.domain.dto.ProfileringEndringMeldingDto
 import no.nav.paw.utils.CallId.callId
 import no.nav.paw.utils.logger
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -15,7 +15,7 @@ class ProfileringEndringProducer(
     private val topic: String,
     private val objectMapper: ObjectMapper
 ) {
-    fun publish(value: ProfileringEndringMelding) {
+    fun publish(value: ProfileringEndringMeldingDto) {
         val record: ProducerRecord<String, String> = ProducerRecord(
             topic,
             null,

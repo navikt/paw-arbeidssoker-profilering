@@ -5,19 +5,21 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Innsatsgruppe
-import no.nav.paw.domain.Profilering
-import no.nav.paw.domain.ProfileringDto
+import no.nav.paw.domain.db.ProfileringEntity
+import no.nav.paw.domain.dto.ProfileringDto
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {
-    fun opprett(foedselsnummer: Foedselsnummer, profilering: Profilering, besvarelse: String): Int {
+    fun opprett(profileringEntity: ProfileringEntity): Int {
         sessionOf(dataSource, returnGeneratedKey = true).use { session ->
             val query =
                 queryOf(
-                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, innsatsgruppe, besvarelse) VALUES (?, ?, ?::jsonb)",
-                    foedselsnummer.foedselsnummer,
-                    profilering.innsatsgruppe.toString(),
-                    besvarelse
+                    "INSERT INTO $PROFILERING_TABELL(foedselsnummer, registrerings_id, alder, jobbet_sammenhengende_seks_av_tolv_siste_mnd, foreslatt_innsatsgruppe) VALUES (?, ?::int, ?::int, ?::boolean, ?)",
+                    profileringEntity.foedselsnummer.foedselsnummer,
+                    profileringEntity.registreringsId,
+                    profileringEntity.alder,
+                    profileringEntity.jobbetSammenhengendeSeksAvTolvSisteMnd,
+                    profileringEntity.foreslattInnsatsgruppe.toString()
                 ).asUpdate
             return session.run(query)
         }
@@ -36,7 +38,10 @@ class ProfileringRepository(private val dataSource: DataSource) {
 
     private fun Row.tilProfilering() = ProfileringDto(
         int("id"),
-        Innsatsgruppe.valueOf(string("innsatsgruppe")),
+        int("registrerings_id"),
+        int("alder"),
+        boolean("jobbet_sammenhengende_seks_av_tolv_siste_mnd"),
+        Innsatsgruppe.valueOf(string("foreslatt_innsatsgruppe")),
         localDateTime("opprettet"),
         localDateTime("endret")
     )

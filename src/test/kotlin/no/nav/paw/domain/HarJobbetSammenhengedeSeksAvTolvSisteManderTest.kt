@@ -17,13 +17,13 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
                 LocalDate.of(2023, 12, 1)
             )
         )
-        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(dagensDato))
+        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(dagensDato))
     }
 
     @Test
     fun `skal returne false når periode listen er tom`() {
         val tomListe = emptyList<EndeligPeriode>()
-        assertFalse(tomListe.harJobbetSammenhengendeSeksAvTolvSisteManeder(dagensDato))
+        assertFalse(tomListe.harJobbetSammenhengendeSeksAvTolvSisteMnd(dagensDato))
     }
 
     @Test
@@ -32,7 +32,7 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 6, 30)),
             EndeligPeriode(LocalDate.of(2021, 1, 1), LocalDate.of(2021, 12, 31))
         )
-        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(LocalDate.of(2023, 4, 4)))
+        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(LocalDate.of(2023, 4, 4)))
     }
 
     @Test
@@ -41,7 +41,7 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 6, 30)),
             EndeligPeriode(LocalDate.of(2021, 6, 1), LocalDate.of(2021, 12, 31))
         )
-        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(LocalDate.of(2023, 4, 4)))
+        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(LocalDate.of(2023, 4, 4)))
     }
 
     @Test
@@ -50,7 +50,7 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
             EndeligPeriode(LocalDate.of(2022, 1, 1), LocalDate.of(2022, 6, 30)),
             EndeligPeriode(LocalDate.of(2021, 12, 1), LocalDate.of(2022, 5, 31))
         )
-        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(LocalDate.of(2022, 8, 1)))
+        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(LocalDate.of(2022, 8, 1)))
     }
 
     @Test
@@ -64,7 +64,7 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
             EndeligPeriode(LocalDate.of(2022, 9, 1), LocalDate.of(2022, 10, 31))
         )
 
-        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(LocalDate.of(2023, 4, 1)))
+        assertTrue(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(LocalDate.of(2023, 4, 1)))
     }
 
     @Test
@@ -77,6 +77,6 @@ class HarJobbetSammenhengedeSeksAvTolvSisteManderTest {
             EndeligPeriode(LocalDate.of(2022, 8, 1), LocalDate.of(2022, 8, 31))
         )
 
-        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteManeder(LocalDate.of(2023, 4, 1)))
+        assertFalse(perioder.harJobbetSammenhengendeSeksAvTolvSisteMnd(LocalDate.of(2023, 4, 1)))
     }
 }

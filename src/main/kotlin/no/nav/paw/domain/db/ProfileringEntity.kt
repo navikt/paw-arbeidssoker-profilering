@@ -1,12 +1,11 @@
-package no.nav.paw.domain.dto
+package no.nav.paw.domain.db
 
+import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Innsatsgruppe
 
-data class ProfileringEndringMeldingDto(
-    val id: Int,
+data class ProfileringEntity(
+    val foedselsnummer: Foedselsnummer,
     val registreringsId: Int,
-    val foedselsnummer: String,
-    val aktorId: String,
     val alder: Int,
     val jobbetSammenhengendeSeksAvTolvSisteMnd: Boolean,
     val foreslattInnsatsgruppe: Innsatsgruppe

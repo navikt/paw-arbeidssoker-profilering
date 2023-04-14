@@ -112,7 +112,7 @@ fun Application.configureDependencyInjection(config: Config) {
 
                 single { ProfileringRepository(get()) }
                 single { ProfileringEndringProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic, get()) }
-                single { ProfileringService(get(), get(), get(), get()) }
+                single { ProfileringService(get(), get(), get()) }
                 single {
                     ArbeidssokerRegistreringConsumer(
                         config.kafka.consumers.arbeidssokerRegistrering.topic,
