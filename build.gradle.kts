@@ -60,6 +60,9 @@ tasks {
         targetCompatibility = JavaVersion.VERSION_17.toString()
         sourceCompatibility = JavaVersion.VERSION_17.toString()
     }
+    compileTestKotlin {
+        dependsOn("generateTestAvroJava")
+    }
     kotlin {
         jvmToolchain {
             languageVersion.set(JavaLanguageVersion.of("17"))
