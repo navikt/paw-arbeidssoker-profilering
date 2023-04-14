@@ -26,7 +26,6 @@ class ArbeidssokerRegistreringConsumer(
             unleashClient.isEnabled("paw-arbeidssoker-profilering.consumer-arbeidssoker-registert")
         if (!konsumerArbeidssokerRegistrert) {
             logger.info("Konsumering av $topic er deaktivert")
-            return
         }
 
         while (true) {

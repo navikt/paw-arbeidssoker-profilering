@@ -1,8 +1,7 @@
 package no.nav.paw.kafka.producers
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.common.kafka.producer.KafkaProducerClient
-import no.nav.paw.domain.dto.ProfileringEndringMeldingDto
+import no.nav.paw.profilering.ArbeidssokerProfilertEvent
 import no.nav.paw.utils.CallId.callId
 import no.nav.paw.utils.logger
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -11,16 +10,15 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 class ProfileringEndringProducer(
-    private val kafkaProducerClient: KafkaProducerClient<String, String>,
-    private val topic: String,
-    private val objectMapper: ObjectMapper
+    private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerProfilertEvent>,
+    private val topic: String
 ) {
-    fun publish(value: ProfileringEndringMeldingDto) {
-        val record: ProducerRecord<String, String> = ProducerRecord(
+    fun publish(value: ArbeidssokerProfilertEvent) {
+        val record: ProducerRecord<String, ArbeidssokerProfilertEvent> = ProducerRecord(
             topic,
             null,
             UUID.randomUUID().toString(),
-            objectMapper.writeValueAsString(value),
+            value,
             listOf(RecordHeader("CallId", callId.toByteArray(StandardCharsets.UTF_8)))
         )
 

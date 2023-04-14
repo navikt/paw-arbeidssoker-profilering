@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
+import io.confluent.kafka.serializers.KafkaAvroSerializer
+import io.confluent.kafka.serializers.KafkaAvroSerializerConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
@@ -70,10 +73,23 @@ fun Application.configureDependencyInjection(config: Config) {
                             .withBaseProperties()
                             .withProducerId(config.kafka.producerId)
                             .withBrokerUrl(config.kafka.brokerUrl)
-                            .withSerializers(StringSerializer::class.java, StringSerializer::class.java)
+                            .withSerializers(StringSerializer::class.java, KafkaAvroSerializer::class.java)
+                            .withProp(
+                                KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
+                                config.kafka.schemaRegisteryUrl
+                            )
                             .build()
 
-                        else -> KafkaPropertiesPreset.aivenDefaultProducerProperties(config.kafka.producerId)
+                        else -> KafkaPropertiesBuilder.producerBuilder()
+                            .withProps(KafkaPropertiesPreset.aivenDefaultProducerProperties(config.kafka.producerId))
+                            .withSerializers(StringSerializer::class.java, KafkaAvroSerializer::class.java)
+                            .withProp(
+                                KafkaAvroSerializerConfig.SCHEMA_REGISTRY_URL_CONFIG,
+                                config.kafka.schemaRegisteryUrl
+                            )
+                            .withProp(SchemaRegistryClientConfig.BASIC_AUTH_CREDENTIALS_SOURCE, "USER_INFO")
+                            .withProp(SchemaRegistryClientConfig.USER_INFO_CONFIG, config.kafka.schemaRegisteryUserInfo)
+                            .build()
                     }
 
                     val client = KafkaProducerClientBuilder.builder<String, String>()
@@ -111,7 +127,7 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single { ProfileringRepository(get()) }
-                single { ProfileringEndringProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic, get()) }
+                single { ProfileringEndringProducer(get(), config.kafka.producers.arbeidssokerEndringer.topic) }
                 single { ProfileringService(get(), get(), get()) }
                 single {
                     ArbeidssokerRegistreringConsumer(

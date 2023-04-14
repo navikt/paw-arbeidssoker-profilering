@@ -1,0 +1,39 @@
+{
+  "type" : "record",
+  "namespace" : "no.nav.paw.profilering",
+  "name" : "ArbeidssokerProfilertEvent",
+  "fields" : [
+    {
+      "type" : "int",
+      "name" : "id"
+    },
+    {
+      "type" : "int",
+      "name" : "registreringsId"
+    },
+    {
+      "type" : "string",
+      "name" : "foedselsnummer"
+    },
+    {
+      "type" : "string",
+      "name" : "aktorid"
+    },
+    {
+      "type" : "int",
+      "name" : "alder"
+    },
+    {
+      "type" : "boolean",
+      "name" : "jobbetSammenhengendeSeksAvTolvSisteMnd"
+    },
+    {
+      "name" : "profilertTil",
+      "type" : {
+        "type" : "enum",
+        "name" : "ProfilertTil",
+        "symbols" : ["ANTATT_GODE_MULIGHETER", "ANTATT_BEHOV_FOR_VEILEDNING", "OPPGITT_HINDRINGER"]
+     }
+    }
+  ]
+}

@@ -51,9 +51,11 @@ fun createConfig(
             postgreSQLContainer.password
         ),
         kafka = KafkaConfig(
-            brokerUrl = kafkaContainer.bootstrapServers,
+            kafkaContainer.bootstrapServers,
             "test-producer",
             "test-consumer",
+            dotenv["KAFKA_SCHEMA_REGISTRY"],
+            null,
             KafkaProducers(
                 KafkaProducer(
                     dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC"]

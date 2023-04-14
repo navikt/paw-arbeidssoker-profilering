@@ -31,6 +31,8 @@ data class Config(
         dotenv["KAFKA_BROKER_URL"],
         dotenv["KAFKA_PRODUCER_ID"],
         dotenv["KAFKA_CONSUMER_GROUP_ID"],
+        dotenv["KAFKA_SCHEMA_REGISTRY"],
+        dotenv["KAFKA_SCHEMA_REGISTRY_USER"] + dotenv["KAFKA_SCHEMA_REGISTRY_PASSWORD"],
         KafkaProducers(
             KafkaProducer(
                 dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_ENDRINGER_TOPIC"]
@@ -62,6 +64,8 @@ data class KafkaConfig(
     val brokerUrl: String? = null,
     val producerId: String,
     val consumerGroupId: String,
+    val schemaRegisteryUrl: String?,
+    val schemaRegisteryUserInfo: String?,
     val producers: KafkaProducers,
     val consumers: KafkaConsumers
 )

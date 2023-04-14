@@ -1,7 +1,7 @@
 package no.nav.paw.domain
 
 import no.nav.paw.domain.db.ProfileringEntity
-import no.nav.paw.domain.dto.ProfileringEndringMeldingDto
+import no.nav.paw.profilering.ArbeidssokerProfilertEvent
 
 data class ArbeidssokerProfilert(
     val foedselsnummer: Foedselsnummer,
@@ -16,13 +16,13 @@ data class ArbeidssokerProfilert(
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
         profilering.foreslattInnsatsgruppe
     )
-    fun tilProfileringEndringMeldingDto(id: Int) = ProfileringEndringMeldingDto(
+    fun tilProfileringEndringMeldingDto(id: Int) = ArbeidssokerProfilertEvent(
         id,
         registreringsId,
         foedselsnummer.foedselsnummer,
         aktorId.aktorId,
         profilering.alder,
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
-        profilering.foreslattInnsatsgruppe
+        profilering.foreslattInnsatsgruppe.profilertTil()
     )
 }

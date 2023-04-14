@@ -27,6 +27,7 @@ plugins {
     kotlin("jvm") version "1.8.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jmailen.kotlinter") version "3.13.0"
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.5.0"
 }
 
 group = "no.nav.paw"

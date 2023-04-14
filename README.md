@@ -146,7 +146,7 @@ Se at alle kjører med
 docker ps
 ```
 
-Fire containere skal kjøre; kakfa, zookeeper, postgres og mock-oauth2-server.
+Fem containere skal kjøre; kakfa, zookeeper, schema-registry, postgres og mock-oauth2-server.
 
 ### Miljøvariabler
 
@@ -196,7 +196,7 @@ Send inn en kafka-melding til `arbeidssoker-registrert-v2`:
 ```sh
 # Eksempel melding
 cat src/main/resources/arbeidssoker-registrert-kafka-melding.json | jq -c .
-docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrert-v2
+docker exec -it paw-arbeidssoker-profilering_kafka_1 /usr/bin/kafka-console-producer --broker-list 127.0.0.1:9092 --topic arbeidssoker-registrert-v2
 ```
 
 ### Consumer
@@ -204,7 +204,7 @@ docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-producer.sh -
 Consumer meldinger fra `arbeidssoker-profilert-v1`
 
 ```sh
-docker exec -it paw-arbeidssoker-profilering_kafka_1 kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilert-v1
+docker exec -it paw-arbeidssoker-profilering_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilert-v1
 ```
 
 ## Formatering

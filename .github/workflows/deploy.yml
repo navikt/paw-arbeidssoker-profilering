@@ -43,6 +43,7 @@ jobs:
           KAFKA_PRODUCER_ID: arbeidssoker-profilering-producer-v1
           AAREG_URL: http://localhost:8090/aareg
           AAREG_SCOPE: api://dev-gcp.paw.paw-arbeidssoker-profilering/.default
+          KAFKA_SCHEMA_REGISTRY: http://localhost:8081
         with:
           arguments: build installDist jar
 
