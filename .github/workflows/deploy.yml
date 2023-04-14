@@ -25,7 +25,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         env:
           ORG_GRADLE_PROJECT_githubPassword: ${{ secrets.GITHUB_TOKEN }}
-          # env-variabler nødvendig for tester
+          # env-variabler for tester
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_HOST: localhost
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PORT: 5432
           NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_DATABASE: profilering
@@ -34,6 +34,8 @@ jobs:
           UNLEASH_URL: https://unleash.nais.io/api/
           IDPORTEN_WELL_KNOWN_URL: http://localhost:8081/default/.well-known/openid-configuration
           IDPORTEN_CLIENT_ID: paw-arbeidssoker-profilering
+          NAIS_APP_NAME: paw-arbeidssoker-profilering
+          NAIS_CLUSTER_NAME: local
         with:
           arguments: build installDist jar
 
