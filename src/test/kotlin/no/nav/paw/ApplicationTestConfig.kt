@@ -74,6 +74,11 @@ fun createConfig(
                 listOf("default"),
                 null,
                 RequiredClaims("idporten", arrayOf("pid", "acr"))
+            ),
+            AuthProvider(
+                "tokenx",
+                oAuth2Server.wellKnownUrl("default").toString(),
+                listOf("dev-gcp:paw:paw-arbeidssoker-profilering")
             )
         )
     )

@@ -25,6 +25,12 @@ data class Config(
             acceptedAudience = listOf(dotenv["IDPORTEN_CLIENT_ID"]),
             cookieName = "selvbetjening-idtoken",
             requiredClaims = RequiredClaims("idporten", arrayOf("pid", "acr"))
+        ),
+        AuthProvider(
+            name = "tokenx",
+            discoveryUrl = dotenv["TOKEN_X_WELL_KNOWN_URL"],
+            acceptedAudience = listOf(dotenv["TOKEN_X_CLIENT_ID"]),
+            requiredClaims = RequiredClaims(dotenv["TOKEN_X_ISSUER"], arrayOf("pid"))
         )
     ),
     val kafka: KafkaConfig = KafkaConfig(

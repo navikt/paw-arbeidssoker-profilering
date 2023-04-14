@@ -15,6 +15,7 @@ import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.testcontainers.containers.KafkaContainer
 import org.testcontainers.containers.PostgreSQLContainer
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -53,6 +54,26 @@ class AutentiseringsTest {
             claims = mapOf(
                 "pid" to ProfileringTestData.foedselsnummer.foedselsnummer,
                 "acr" to "Level3"
+            )
+        )
+
+        val response = client.get("/api/v1/profilering") {
+            bearerAuth(token.serialize())
+        }
+
+        assertEquals(HttpStatusCode.NoContent, response.status)
+    }
+
+    @Test
+    @Ignore
+    fun `skal støtte tokenx`() = withTestApplication(config) {
+        routing { apiRoutes() }
+
+        val token = oAuth2Server.issueToken(
+            issuerId = "default",
+            audience = "dev-gcp:paw:paw-arbeidssoker-profilering",
+            claims = mapOf(
+                "pid" to ProfileringTestData.foedselsnummer.foedselsnummer
             )
         )
 

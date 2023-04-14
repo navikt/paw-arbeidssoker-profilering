@@ -17,7 +17,7 @@ import org.koin.ktor.ext.inject
 fun Route.apiRoutes() {
     val profileringService: ProfileringService by inject()
 
-    authenticate("idporten") {
+    authenticate("idporten", "tokenx") {
         route("/api/v1") {
             get("/profilering") {
                 try {

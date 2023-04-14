@@ -53,6 +53,8 @@ spec:
       memory: 580Mi
   kafka:
     pool: nav-dev
+  tokenx:
+    enabled: true
   accessPolicy:
       outbound:
           rules:
