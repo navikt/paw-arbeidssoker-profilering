@@ -65,6 +65,7 @@ tasks {
         }
     }
     test {
+        dependsOn("generateTestAvroJava")
         useJUnitPlatform()
         testLogging {
             showExceptions = true
