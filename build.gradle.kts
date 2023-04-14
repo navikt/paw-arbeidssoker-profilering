@@ -22,12 +22,13 @@ val junit_jupiter_version: String by project
 val dotenv_kotlin_version: String by project
 val nocommons_version: String by project
 val mock_oauth2_server_version: String by project
+val avro_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
     id("io.ktor.plugin") version "2.2.4"
     id("org.jmailen.kotlinter") version "3.13.0"
-    id("com.github.davidmc24.gradle.plugin.avro") version "1.5.0"
+    id("com.github.davidmc24.gradle.plugin.avro") version "1.7.0"
 }
 
 group = "no.nav.paw"
@@ -65,7 +66,6 @@ tasks {
         }
     }
     test {
-        dependsOn("generateTestAvroJava")
         useJUnitPlatform()
         testLogging {
             showExceptions = true
@@ -122,6 +122,7 @@ dependencies {
     // Annet
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
     implementation("io.insert-koin:koin-ktor:$koin_version")
+    implementation("org.apache.avro:avro:$avro_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstash_version")
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
