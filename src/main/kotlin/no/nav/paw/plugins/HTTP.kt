@@ -14,7 +14,7 @@ fun Application.configureHTTP() {
     install(IgnoreTrailingSlash)
     install(StatusPages) {
         exception<StatusException> { call, cause ->
-            logger.error("$cause ${cause.printStackTrace()}")
+            logger.error("Feil ved kall", cause)
             call.respond(cause.status, cause.description ?: cause.status.description)
         }
     }

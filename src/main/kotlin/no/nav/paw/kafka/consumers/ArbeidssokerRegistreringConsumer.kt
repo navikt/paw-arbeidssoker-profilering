@@ -33,15 +33,15 @@ class ArbeidssokerRegistreringConsumer(
                 try {
                     leggTilCallId()
                     val arbeidssokerRegistrert: ArbeidssokerRegistrert = objectMapper.readValue(post.value())
-                    profileringService.opprettProfilering(arbeidssokerRegistrert)
 
                     logger.info("Mottok melding fra $topic med offset ${post.offset()}p${post.partition()}")
 
-                    consumer.commitSync()
+                    profileringService.opprettProfilering(arbeidssokerRegistrert)
                 } catch (error: Exception) {
-                    logger.error("Feil ved konsumering av melding fra $topic: ${error.message}")
+                    logger.error("Feil ved konsumering av melding fra $topic", error)
                     throw error
                 }
+                consumer.commitSync()
             }
         }
     }
