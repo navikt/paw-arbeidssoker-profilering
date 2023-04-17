@@ -38,7 +38,7 @@ data class Config(
         dotenv["KAFKA_PRODUCER_ID"],
         dotenv["KAFKA_CONSUMER_GROUP_ID"],
         dotenv["KAFKA_SCHEMA_REGISTRY"],
-        dotenv["KAFKA_SCHEMA_REGISTRY_USER"] + dotenv["KAFKA_SCHEMA_REGISTRY_PASSWORD"],
+        "${dotenv["KAFKA_SCHEMA_REGISTRY_USER"]}:${dotenv["KAFKA_SCHEMA_REGISTRY_PASSWORD"]}",
         KafkaProducers(
             KafkaProducer(
                 dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC"]

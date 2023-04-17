@@ -1,7 +1,7 @@
 {
   "type" : "record",
   "namespace" : "no.nav.paw.profilering",
-  "name" : "ArbeidssokerProfilertEvent",
+  "name" : "ArbeidssokerProfilertEventV2",
   "fields" : [
     {
       "type" : "int",
