@@ -1,6 +1,5 @@
-package no.nav.paw.domain.dto
+package no.nav.paw.domain
 
-import no.nav.paw.domain.Innsatsgruppe
 import java.time.LocalDateTime
 
 data class ProfileringDto(

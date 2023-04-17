@@ -5,8 +5,8 @@ import kotliquery.queryOf
 import kotliquery.sessionOf
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Innsatsgruppe
-import no.nav.paw.domain.db.ProfileringEntity
-import no.nav.paw.domain.dto.ProfileringDto
+import no.nav.paw.domain.ProfileringDto
+import no.nav.paw.domain.ProfileringEntity
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {

@@ -45,7 +45,7 @@ graph TD
   ARBEIDSSOKER_PROFILERT_MELDING["Sender profilert melding til kafka"]
 
   ARBEIDSSOKER_PROFILERT_MELDING_KAFKA["
-<center><code>topic: paw.arbeidssoker-profilert-v1</code></center>
+<center><code>topic: paw.arbeidssoker-profilert-v2</code></center>
 <pre>
 {
     &quot;id&quot;: 1,
@@ -201,10 +201,10 @@ docker exec -it paw-arbeidssoker-profilering_kafka_1 /usr/bin/kafka-console-prod
 
 ### Consumer
 
-Consumer meldinger fra `arbeidssoker-profilert-v1`
+Consumer meldinger fra `arbeidssoker-profilert-v2`
 
 ```sh
-docker exec -it paw-arbeidssoker-profilering_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilert-v1
+docker exec -it paw-arbeidssoker-profilering_kafka_1 /usr/bin/kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic arbeidssoker-profilert-v2
 ```
 
 ## Formatering

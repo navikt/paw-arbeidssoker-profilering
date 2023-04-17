@@ -1,6 +1,5 @@
 package no.nav.paw.domain
 
-import no.nav.paw.domain.db.ProfileringEntity
 import no.nav.paw.profilering.ArbeidssokerProfilertEvent
 
 data class ArbeidssokerProfilert(

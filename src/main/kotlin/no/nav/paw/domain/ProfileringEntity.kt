@@ -1,7 +1,4 @@
-package no.nav.paw.domain.db
-
-import no.nav.paw.domain.Foedselsnummer
-import no.nav.paw.domain.Innsatsgruppe
+package no.nav.paw.domain
 
 data class ProfileringEntity(
     val foedselsnummer: Foedselsnummer,

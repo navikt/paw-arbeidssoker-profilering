@@ -6,8 +6,8 @@ import no.nav.paw.domain.ArbeidssokerProfilert
 import no.nav.paw.domain.ArbeidssokerRegistrert
 import no.nav.paw.domain.Foedselsnummer
 import no.nav.paw.domain.Profilering
+import no.nav.paw.domain.ProfileringDto
 import no.nav.paw.domain.beregnInnsatsgruppe
-import no.nav.paw.domain.dto.ProfileringDto
 import no.nav.paw.domain.harJobbetSammenhengendeSeksAvTolvSisteMnd
 import no.nav.paw.domain.slaaSammenPerioder
 import no.nav.paw.domain.tilEndeligePerioder

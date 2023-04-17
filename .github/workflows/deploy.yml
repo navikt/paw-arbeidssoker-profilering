@@ -55,7 +55,7 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: nais/nais-dev-gcp.yaml,nais/connector.yaml
           REF: ${{ env.COMMIT }}
-          VAR: image=${{ needs.build.outputs.image }},topic=arbeidssoker-profilert-v1,kafka=dev-gcp,project=paw-dev-129d
+          VAR: image=${{ needs.build.outputs.image }},topic=arbeidssoker-profilert-v2,kafka=dev-gcp,project=paw-dev-129d
 
   # deploy-prod:
   #   if: github.ref == 'refs/heads/main'

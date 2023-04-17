@@ -8,7 +8,7 @@ import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import no.nav.paw.domain.Innsatsgruppe
-import no.nav.paw.domain.dto.ProfileringDto
+import no.nav.paw.domain.ProfileringDto
 import no.nav.paw.services.ProfileringService
 import no.nav.paw.utils.getPidClaim
 import no.nav.paw.utils.logger
