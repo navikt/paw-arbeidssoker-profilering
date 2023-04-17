@@ -1,11 +1,13 @@
 package no.nav.paw.domain
 
 import no.nav.paw.profilering.ArbeidssokerProfilertEventV2
+import java.time.ZonedDateTime
 
 data class ArbeidssokerProfilert(
     val foedselsnummer: Foedselsnummer,
     val aktorId: AktorId,
     val registreringsId: Int,
+    val opprettetDato: ZonedDateTime,
     val profilering: Profilering
 ) {
     fun tilProfileringEntity() = ProfileringEntity(
@@ -22,6 +24,7 @@ data class ArbeidssokerProfilert(
         aktorId.aktorId,
         profilering.alder,
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
+        opprettetDato.toLocalDate(),
         profilering.foreslattInnsatsgruppe.profilertTil()
     )
 }

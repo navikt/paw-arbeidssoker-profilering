@@ -28,6 +28,13 @@
       "name" : "jobbetSammenhengendeSeksAvTolvSisteMnd"
     },
     {
+      "name": "opprettet",
+      "type": {
+        "type": "int",
+        "logicalType": "date"
+      }
+    },
+    {
       "name" : "profilertTil",
       "type" : {
         "type" : "enum",
