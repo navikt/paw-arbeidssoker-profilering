@@ -28,6 +28,14 @@
       "name" : "jobbetSammenhengendeSeksAvTolvSisteMnd"
     },
     {
+      "name" : "profilertTil",
+      "type" : {
+        "type" : "enum",
+        "name" : "ProfilertTil",
+        "symbols" : ["ANTATT_GODE_MULIGHETER", "ANTATT_BEHOV_FOR_VEILEDNING", "OPPGITT_HINDRINGER"]
+     }
+    },
+    {
       "name": "opprettet",
       "type" : [
         "null",
@@ -35,15 +43,8 @@
           "type" : "int",
           "logicalType": "date"
         }
-      ]
-    },
-    {
-      "name" : "profilertTil",
-      "type" : {
-        "type" : "enum",
-        "name" : "ProfilertTil",
-        "symbols" : ["ANTATT_GODE_MULIGHETER", "ANTATT_BEHOV_FOR_VEILEDNING", "OPPGITT_HINDRINGER"]
-     }
+      ],
+      "default": null
     }
   ]
 }
