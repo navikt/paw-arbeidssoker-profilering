@@ -49,7 +49,7 @@ object ProfileringTestData {
         foedselsnummer,
         aktorId,
         1,
-        ZonedDateTime.now(),
-        profilering
+        profilering,
+        ZonedDateTime.now()
     )
 }

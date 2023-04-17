@@ -67,8 +67,8 @@ class ProfileringService(
             arbeidssokerRegistrert.foedselsnummer,
             arbeidssokerRegistrert.aktorId,
             arbeidssokerRegistrert.registreringsId,
-            arbeidssokerRegistrert.opprettetDato,
-            profilering
+            profilering,
+            arbeidssokerRegistrert.opprettetDato
         )
     }
 }

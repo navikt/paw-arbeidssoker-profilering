@@ -7,8 +7,8 @@ data class ArbeidssokerProfilert(
     val foedselsnummer: Foedselsnummer,
     val aktorId: AktorId,
     val registreringsId: Int,
-    val opprettetDato: ZonedDateTime,
-    val profilering: Profilering
+    val profilering: Profilering,
+    val opprettetDato: ZonedDateTime
 ) {
     fun tilProfileringEntity() = ProfileringEntity(
         foedselsnummer,
@@ -17,6 +17,7 @@ data class ArbeidssokerProfilert(
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
         profilering.foreslattInnsatsgruppe
     )
+
     fun tilProfileringEndringMeldingDto(id: Int) = ArbeidssokerProfilertEventV2(
         id,
         registreringsId,
@@ -24,7 +25,7 @@ data class ArbeidssokerProfilert(
         aktorId.aktorId,
         profilering.alder,
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
-        opprettetDato.toLocalDate(),
-        profilering.foreslattInnsatsgruppe.profilertTil()
+        profilering.foreslattInnsatsgruppe.profilertTil(),
+        opprettetDato.toLocalDate()
     )
 }
