@@ -39,7 +39,7 @@ spec:
     - name: KAFKA_PRODUCER_ID
       value: arbeidssoker-profilering-producer-v1
     - name: AAREG_URL
-      value: https://aareg-services-q1.dev-fss-pub.nais.io/api/v2/arbeidstaker/arbeidsforhold
+      value: https://aareg-services-q1.dev-fss-pub.nais.io/api/v1/arbeidstaker/arbeidsforhold
     - name: AAREG_SCOPE
       value: api://dev-fss.arbeidsforhold.aareg-services-nais-q1/.default
     - name: UNLEASH_URL
