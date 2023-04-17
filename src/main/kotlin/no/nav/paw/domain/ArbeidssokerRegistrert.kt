@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 data class ArbeidssokerRegistrert(
     val foedselsnummer: Foedselsnummer,
     val aktorId: AktorId,
-    val registringsId: Int,
+    val registreringsId: Int,
     val besvarelse: Besvarelse,
     val opprettetDato: ZonedDateTime
 )

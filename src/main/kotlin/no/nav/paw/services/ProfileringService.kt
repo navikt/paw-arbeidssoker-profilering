@@ -66,7 +66,7 @@ class ProfileringService(
         return ArbeidssokerProfilert(
             arbeidssokerRegistrert.foedselsnummer,
             arbeidssokerRegistrert.aktorId,
-            arbeidssokerRegistrert.registringsId,
+            arbeidssokerRegistrert.registreringsId,
             profilering
         )
     }
