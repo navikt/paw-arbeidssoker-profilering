@@ -1,7 +1,7 @@
 package no.nav.paw.kafka.producers
 
 import no.nav.common.kafka.producer.KafkaProducerClient
-import no.nav.paw.profilering.ArbeidssokerProfilertEvent
+import no.nav.paw.profilering.ArbeidssokerProfilertEventV2
 import no.nav.paw.utils.CallId.callId
 import no.nav.paw.utils.logger
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -10,11 +10,11 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 class ArbeidssokerProfilertProducer(
-    private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerProfilertEvent>,
+    private val kafkaProducerClient: KafkaProducerClient<String, ArbeidssokerProfilertEventV2>,
     private val topic: String
 ) {
-    fun publish(value: ArbeidssokerProfilertEvent) {
-        val record: ProducerRecord<String, ArbeidssokerProfilertEvent> = ProducerRecord(
+    fun publish(value: ArbeidssokerProfilertEventV2) {
+        val record: ProducerRecord<String, ArbeidssokerProfilertEventV2> = ProducerRecord(
             topic,
             null,
             UUID.randomUUID().toString(),

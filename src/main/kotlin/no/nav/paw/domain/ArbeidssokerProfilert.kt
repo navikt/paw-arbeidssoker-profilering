@@ -1,6 +1,6 @@
 package no.nav.paw.domain
 
-import no.nav.paw.profilering.ArbeidssokerProfilertEvent
+import no.nav.paw.profilering.ArbeidssokerProfilertEventV2
 
 data class ArbeidssokerProfilert(
     val foedselsnummer: Foedselsnummer,
@@ -15,7 +15,7 @@ data class ArbeidssokerProfilert(
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
         profilering.foreslattInnsatsgruppe
     )
-    fun tilProfileringEndringMeldingDto(id: Int) = ArbeidssokerProfilertEvent(
+    fun tilProfileringEndringMeldingDto(id: Int) = ArbeidssokerProfilertEventV2(
         id,
         registreringsId,
         foedselsnummer.foedselsnummer,
