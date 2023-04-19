@@ -70,6 +70,6 @@ jobs:
           TEAM: paw
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
-          RESOURCE: nais/nais-prod-gcp.yaml
+          RESOURCE: nais/nais-prod-gcp.yaml,nais/connector.yaml
           REF: ${{ env.COMMIT }}
           VAR: image=${{ needs.build.outputs.image }},topic=arbeidssoker-profilert-v2,kafka=prod-gcp,project=paw-prod-7151
