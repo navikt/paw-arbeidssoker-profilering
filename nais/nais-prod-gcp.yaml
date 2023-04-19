@@ -52,7 +52,7 @@ spec:
       cpu: 500m
       memory: 580Mi
   kafka:
-    pool: nav-dev
+    pool: nav-prod
   tokenx:
     enabled: true
   accessPolicy:
@@ -62,7 +62,7 @@ spec:
               namespace: arbeidsforhold
               cluster: prod-fss
           external:
-            - host: aareg-services.dev-fss-pub.nais.io
+            - host: aareg-services.prod-fss-pub.nais.io
   gcp:
     sqlInstances:
       - type: POSTGRES_14
