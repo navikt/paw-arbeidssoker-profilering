@@ -26,6 +26,6 @@ data class ArbeidssokerProfilert(
         profilering.alder,
         profilering.jobbetSammenhengendeSeksAvTolvSisteMnd,
         profilering.foreslattInnsatsgruppe.profilertTil(),
-        opprettetDato.toLocalDate()
+        opprettetDato.toInstant()
     )
 }

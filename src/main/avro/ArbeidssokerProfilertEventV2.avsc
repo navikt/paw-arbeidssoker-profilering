@@ -36,12 +36,12 @@
      }
     },
     {
-      "name": "opprettet",
+      "name": "opprettet_dato",
       "type" : [
         "null",
         {
-          "type" : "int",
-          "logicalType": "date"
+          "type" : "long",
+          "logicalType": "timestamp-millis"
         }
       ],
       "default": null
