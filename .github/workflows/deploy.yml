@@ -57,19 +57,19 @@ jobs:
           REF: ${{ env.COMMIT }}
           VAR: image=${{ needs.build.outputs.image }},topic=arbeidssoker-profilert-v2,kafka=dev-gcp,project=paw-dev-129d
 
-  # deploy-prod:
-  #   if: github.ref == 'refs/heads/main'
-  #   name: Deploy to prod-gcp
-  #   needs: [build]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    name: Deploy to prod-gcp
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
-  #     - uses: nais/deploy/actions/deploy@v1
-  #       env:
-  #         TEAM: paw
-  #         APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-  #         CLUSTER: prod-gcp
-  #         RESOURCE: nais/nais-prod-gcp.yaml
-  #         REF: ${{ env.COMMIT }}
-  #         VAR: image=${{ needs.build.outputs.image }}
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          TEAM: paw
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: prod-gcp
+          RESOURCE: nais/nais-prod-gcp.yaml
+          REF: ${{ env.COMMIT }}
+          VAR: image=${{ needs.build.outputs.image }},topic=arbeidssoker-profilert-v2,kafka=prod-gcp,project=paw-prod-7151

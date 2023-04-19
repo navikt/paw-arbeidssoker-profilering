@@ -1,0 +1,70 @@
+apiVersion: nais.io/v1alpha1
+kind: Application
+metadata:
+  name: paw-arbeidssoker-profilering
+  namespace: paw
+  labels:
+    team: paw
+spec:
+  azure:
+    application:
+      enabled: true
+  idporten:
+    enabled: true
+  secureLogs:
+    enabled: true
+  image: {{ image }}
+  ingresses:
+    - https://arbeidssoker-profilering.intern.nav.no
+  port: 8080
+  replicas:
+    min: 1
+    max: 1
+  liveness:
+    path: /internal/isAlive
+    initialDelay: 10
+  readiness:
+    path: /internal/isReady
+    initialDelay: 10
+  prometheus:
+    enabled: true
+    path: /internal/metrics
+  env:
+    - name: KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC
+      value: paw.arbeidssoker-registrert-v2
+    - name: KAFKA_CONSUMER_GROUP_ID
+      value: arbeidssoker-profilering-consumer-v1
+    - name: KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC
+      value: paw.arbeidssoker-profilert-v2
+    - name: KAFKA_PRODUCER_ID
+      value: arbeidssoker-profilering-producer-v1
+    - name: AAREG_URL
+      value: https://aareg-services.prod-fss-pub.nais.io/api/v1/arbeidstaker/arbeidsforhold
+    - name: AAREG_SCOPE
+      value: api://prod-fss.arbeidsforhold.aareg-services-nais/.default
+    - name: UNLEASH_URL
+      value: https://unleash.nais.io/api/
+  resources:
+    limits:
+      cpu: '3'
+      memory: 768Mi
+    requests:
+      cpu: 500m
+      memory: 580Mi
+  kafka:
+    pool: nav-dev
+  tokenx:
+    enabled: true
+  accessPolicy:
+      outbound:
+          rules:
+            - application: aareg-services-nais
+              namespace: arbeidsforhold
+              cluster: prod-fss
+          external:
+            - host: aareg-services.dev-fss-pub.nais.io
+  gcp:
+    sqlInstances:
+      - type: POSTGRES_14
+        databases:
+          - name: profilering
