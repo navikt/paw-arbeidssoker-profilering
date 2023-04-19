@@ -10,7 +10,7 @@ import no.nav.paw.domain.ProfileringEntity
 import javax.sql.DataSource
 
 class ProfileringRepository(private val dataSource: DataSource) {
-    fun opprett(profileringEntity: ProfileringEntity): Int {
+    fun opprett(profileringEntity: ProfileringEntity): Long? {
         sessionOf(dataSource, returnGeneratedKey = true).use { session ->
             val query =
                 queryOf(
@@ -20,7 +20,7 @@ class ProfileringRepository(private val dataSource: DataSource) {
                     profileringEntity.alder,
                     profileringEntity.jobbetSammenhengendeSeksAvTolvSisteMnd,
                     profileringEntity.foreslattInnsatsgruppe.toString()
-                ).asUpdate
+                ).asUpdateAndReturnGeneratedKey
             return session.run(query)
         }
     }

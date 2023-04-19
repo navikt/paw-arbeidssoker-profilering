@@ -18,8 +18,8 @@ data class ArbeidssokerProfilert(
         profilering.foreslattInnsatsgruppe
     )
 
-    fun tilProfileringEndringMeldingDto(id: Int) = ArbeidssokerProfilertEventV2(
-        id,
+    fun tilProfileringEndringMeldingDto(id: Long?) = ArbeidssokerProfilertEventV2(
+        id?.toInt(),
         registreringsId,
         foedselsnummer.foedselsnummer,
         aktorId.aktorId,
