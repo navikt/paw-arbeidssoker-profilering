@@ -9,8 +9,6 @@ spec:
   azure:
     application:
       enabled: true
-  idporten:
-    enabled: true
   secureLogs:
     enabled: true
   image: {{ image }}

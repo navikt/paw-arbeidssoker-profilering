@@ -17,13 +17,12 @@ import no.nav.paw.plugins.configureHTTP
 import no.nav.paw.plugins.configureLogging
 import no.nav.paw.plugins.configureSerialization
 import no.nav.security.mock.oauth2.MockOAuth2Server
-import no.nav.security.token.support.v2.RequiredClaims
 import org.testcontainers.containers.KafkaContainer
 import org.testcontainers.containers.PostgreSQLContainer
 
 fun <R> withTestApplication(
     config: Config,
-    test: suspend ApplicationTestBuilder.() -> R
+    test: suspend ApplicationTestBuilder.() -> R,
 ) {
     testApplication {
         application {
@@ -40,7 +39,7 @@ fun <R> withTestApplication(
 fun createConfig(
     oAuth2Server: MockOAuth2Server,
     postgreSQLContainer: PostgreSQLContainer<*>,
-    kafkaContainer: KafkaContainer
+    kafkaContainer: KafkaContainer,
 ): Config =
     Config(
         database = DatabaseConfig(
@@ -48,7 +47,7 @@ fun createConfig(
             postgreSQLContainer.firstMappedPort.toString(),
             "profilering",
             postgreSQLContainer.username,
-            postgreSQLContainer.password
+            postgreSQLContainer.password,
         ),
         kafka = KafkaConfig(
             kafkaContainer.bootstrapServers,
@@ -58,27 +57,20 @@ fun createConfig(
             null,
             KafkaProducers(
                 KafkaProducer(
-                    dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC"]
-                )
+                    dotenv["KAFKA_PRODUCER_ARBEIDSSOKER_PROFILERT_TOPIC"],
+                ),
             ),
             KafkaConsumers(
                 KafkaConsumer(
-                    dotenv["KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC"]
-                )
-            )
+                    dotenv["KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC"],
+                ),
+            ),
         ),
         authentication = listOf(
             AuthProvider(
-                "idporten",
-                oAuth2Server.wellKnownUrl("default").toString(),
-                listOf("default"),
-                null,
-                RequiredClaims("idporten", arrayOf("pid", "acr"))
-            ),
-            AuthProvider(
                 "tokenx",
                 oAuth2Server.wellKnownUrl("default").toString(),
-                listOf("dev-gcp:paw:paw-arbeidssoker-profilering")
-            )
-        )
+                listOf("default"),
+            ),
+        ),
     )

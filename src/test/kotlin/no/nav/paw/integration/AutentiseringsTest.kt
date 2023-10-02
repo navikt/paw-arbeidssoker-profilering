@@ -64,25 +64,6 @@ class AutentiseringsTest {
     }
 
     @Test
-    fun `skal støtte tokenx`() = withTestApplication(config) {
-        routing { apiRoutes() }
-
-        val token = oAuth2Server.issueToken(
-            issuerId = "default",
-            audience = "dev-gcp:paw:paw-arbeidssoker-profilering",
-            claims = mapOf(
-                "pid" to ProfileringTestData.foedselsnummer.foedselsnummer
-            )
-        )
-
-        val response = client.get("/api/v1/profilering") {
-            bearerAuth(token.serialize())
-        }
-
-        assertEquals(HttpStatusCode.NoContent, response.status)
-    }
-
-    @Test
     fun `skal respondere med 401 når token har feil issuer`() = withTestApplication(config) {
         routing { apiRoutes() }
 
