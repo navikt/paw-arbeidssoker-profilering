@@ -27,6 +27,8 @@ spec:
   prometheus:
     enabled: true
     path: /internal/metrics
+  envFrom:
+    - secret: paw-arbeidssoker-profilering-unleash-api-token
   env:
     - name: KAFKA_CONSUMER_ARBEIDSSOKER_REGISTERING_TOPIC
       value: paw.arbeidssoker-registrert-v2
@@ -40,8 +42,8 @@ spec:
       value: https://aareg-services-q1.dev-fss-pub.nais.io/api/v1/arbeidstaker/arbeidsforhold
     - name: AAREG_SCOPE
       value: api://dev-fss.arbeidsforhold.aareg-services-nais-q1/.default
-    - name: UNLEASH_URL
-      value: https://unleash.nais.io/api/
+    - name: UNLEASH_SERVER_API_URL
+      value: https://paw-unleash-api.nav.cloud.nais.io/api
   resources:
     limits:
       cpu: '3'
@@ -61,6 +63,7 @@ spec:
               cluster: dev-fss
           external:
             - host: aareg-services-q1.dev-fss-pub.nais.io
+            - host: paw-unleash-api.nav.cloud.nais.io
   gcp:
     sqlInstances:
       - type: POSTGRES_14
