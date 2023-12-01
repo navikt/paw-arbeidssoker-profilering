@@ -23,6 +23,7 @@ val dotenv_kotlin_version: String by project
 val nocommons_version: String by project
 val mock_oauth2_server_version: String by project
 val avro_version: String by project
+val unleash_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -98,7 +99,8 @@ dependencies {
     // NAV common
     implementation("no.nav.common:token-client:$nav_common_modules_version")
     implementation("no.nav.common:kafka:$nav_common_modules_version")
-    implementation("no.nav.common:feature-toggle:$nav_common_modules_version")
+
+    implementation("io.getunleash:unleash-client-java:$unleash_version")
 
     // NAV security
     implementation("no.nav.security:token-validation-ktor-v2:$token_support_version")
