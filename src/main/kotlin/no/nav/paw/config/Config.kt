@@ -1,8 +1,8 @@
 package no.nav.paw.config
 
+import io.getunleash.util.UnleashConfig
 import io.github.cdimascio.dotenv.dotenv
 import no.nav.security.token.support.v2.RequiredClaims
-import io.getunleash.util.UnleashConfig
 
 val dotenv = dotenv { ignoreIfMissing = true }
 

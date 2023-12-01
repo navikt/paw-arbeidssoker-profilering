@@ -4,8 +4,6 @@ import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.routing.routing
-import javax.sql.DataSource
-import kotlin.concurrent.thread
 import no.nav.paw.config.Config
 import no.nav.paw.config.migrateDatabase
 import no.nav.paw.kafka.consumers.ArbeidssokerRegistreringConsumer
@@ -18,6 +16,8 @@ import no.nav.paw.routes.apiRoutes
 import no.nav.paw.routes.internalRoutes
 import no.nav.paw.routes.swaggerRoutes
 import org.koin.ktor.ext.inject
+import javax.sql.DataSource
+import kotlin.concurrent.thread
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module)
