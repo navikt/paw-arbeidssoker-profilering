@@ -8,6 +8,7 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
 import io.confluent.kafka.serializers.KafkaAvroSerializer
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig
+import io.getunleash.DefaultUnleash
 import io.getunleash.Unleash
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -58,7 +59,7 @@ fun Application.configureDependencyInjection(config: Config) {
                 }
 
                 single<Unleash> {
-                    UnleashDefault(
+                    DefaultUnleash(
                         config.unleashClientConfig
                     )
                 }
