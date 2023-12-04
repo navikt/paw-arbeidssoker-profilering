@@ -20,6 +20,12 @@ data class Config(
         .instanceId(dotenv["NAIS_APP_NAME"])
         .unleashAPI(dotenv["UNLEASH_SERVER_API_URL"])
         .apiKey(dotenv["UNLEASH_SERVER_API_TOKEN"])
+        .environment(
+            when (System.getenv("NAIS_CLUSTER_NAME").orEmpty()) {
+                "prod-gcp" -> "production"
+                else -> "development"
+            }
+        )
         .synchronousFetchOnInitialisation(true)
         .build(),
     val authentication: List<AuthProvider> = listOf(
