@@ -63,6 +63,7 @@ spec:
               cluster: prod-fss
           external:
             - host: aareg-services.prod-fss-pub.nais.io
+            - host: paw-unleash-api.nav.cloud.nais.io
   gcp:
     sqlInstances:
       - type: POSTGRES_14
