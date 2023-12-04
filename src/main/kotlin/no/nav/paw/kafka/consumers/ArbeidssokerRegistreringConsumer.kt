@@ -24,6 +24,9 @@ class ArbeidssokerRegistreringConsumer(
 
         val konsumerArbeidssokerRegistrert =
             unleashClient.isEnabled("paw-arbeidssoker-profilering.consumer-arbeidssoker-registert")
+
+        logger.info("unleash variant", unleashClient.getVariant("paw-arbeidssoker-profilering.consumer-arbeidssoker-registert"))
+
         if (!konsumerArbeidssokerRegistrert) {
             logger.info("Konsumering av $topic er deaktivert")
         }
