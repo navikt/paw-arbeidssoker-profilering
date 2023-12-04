@@ -20,6 +20,7 @@ data class Config(
         .instanceId(dotenv["NAIS_APP_NAME"])
         .unleashAPI(dotenv["UNLEASH_SERVER_API_URL"])
         .apiKey(dotenv["UNLEASH_SERVER_API_TOKEN"])
+        .synchronousFetchOnInitialisation(true)
         .build(),
     val authentication: List<AuthProvider> = listOf(
         AuthProvider(
