@@ -1,5 +1,6 @@
 package no.nav.paw.config
 
+import io.getunleash.util.UnleashConfig
 import io.github.cdimascio.dotenv.dotenv
 import no.nav.security.token.support.v2.RequiredClaims
 
@@ -14,10 +15,13 @@ data class Config(
         dotenv["NAIS_DATABASE_PAW_ARBEIDSSOKER_PROFILERING_PROFILERING_PASSWORD"]
     ),
     val naisEnv: NaisEnv = NaisEnv.current(),
-    val unleashClientConfig: UnleashClientConfig = UnleashClientConfig(
-        dotenv["UNLEASH_URL"],
-        dotenv["NAIS_APP_NAME"]
-    ),
+    val unleashClientConfig: UnleashConfig = UnleashConfig.builder()
+        .appName(dotenv["NAIS_APP_NAME"])
+        .instanceId(dotenv["NAIS_APP_NAME"])
+        .unleashAPI(dotenv["UNLEASH_SERVER_API_URL"])
+        .apiKey(dotenv["UNLEASH_SERVER_API_TOKEN"])
+        .synchronousFetchOnInitialisation(true)
+        .build(),
     val authentication: List<AuthProvider> = listOf(
         AuthProvider(
             name = "tokenx",

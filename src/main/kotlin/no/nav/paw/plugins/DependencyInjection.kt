@@ -8,14 +8,13 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClientConfig
 import io.confluent.kafka.serializers.KafkaAvroSerializer
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig
+import io.getunleash.DefaultUnleash
+import io.getunleash.Unleash
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
-import no.nav.common.featuretoggle.ByClusterStrategy
-import no.nav.common.featuretoggle.UnleashClient
-import no.nav.common.featuretoggle.UnleashClientImpl
 import no.nav.common.kafka.producer.util.KafkaProducerClientBuilder
 import no.nav.common.kafka.util.KafkaPropertiesBuilder
 import no.nav.common.kafka.util.KafkaPropertiesPreset
@@ -59,11 +58,9 @@ fun Application.configureDependencyInjection(config: Config) {
                     }
                 }
 
-                single<UnleashClient> {
-                    UnleashClientImpl(
-                        config.unleashClientConfig.url,
-                        config.unleashClientConfig.appName,
-                        listOf(ByClusterStrategy())
+                single<Unleash> {
+                    DefaultUnleash(
+                        config.unleashClientConfig
                     )
                 }
 

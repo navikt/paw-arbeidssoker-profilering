@@ -2,7 +2,7 @@ package no.nav.paw.kafka.consumers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import no.nav.common.featuretoggle.UnleashClient
+import io.getunleash.Unleash
 import no.nav.paw.domain.ArbeidssokerRegistrert
 import no.nav.paw.services.ProfileringService
 import no.nav.paw.utils.CallId.leggTilCallId
@@ -14,7 +14,7 @@ class ArbeidssokerRegistreringConsumer(
     private val topic: String,
     private val consumer: KafkaConsumer<String, String>,
     private val profileringService: ProfileringService,
-    private val unleashClient: UnleashClient,
+    private val unleashClient: Unleash,
     private val objectMapper: ObjectMapper
 ) {
 
@@ -24,6 +24,7 @@ class ArbeidssokerRegistreringConsumer(
 
         val konsumerArbeidssokerRegistrert =
             unleashClient.isEnabled("paw-arbeidssoker-profilering.consumer-arbeidssoker-registert")
+
         if (!konsumerArbeidssokerRegistrert) {
             logger.info("Konsumering av $topic er deaktivert")
         }
